@@ -29,8 +29,7 @@
     };
 
     ContentView.prototype.render = function() {
-        app.Views.CoreView.prototype.render.call(this);
-
+        this.renderSelf();
         var currentView = this.subViews[app.Config.defaultRoute];
         if (this.subViews[this.route.page]) {
             currentView = this.subViews[this.route.page];

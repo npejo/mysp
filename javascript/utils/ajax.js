@@ -37,11 +37,15 @@
     function makeRequest(params, successCallback, errorCallback) {
         var xhr = new XMLHttpRequest();
 
-        var url = app.Config.apiBaseURL + params.url;
+        var url = (params.url.indexOf('https') === -1)
+            ? app.Config.apiBaseURL + params.url
+            : params.url;
 
         xhr.open(params.method, encodeURI(url));
 
         xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('Authorization', 'Bearer ' + app.Utils.ajax.token);
+
         if (params.headers) {
             setHeaders(xhr, params.headers);
         }

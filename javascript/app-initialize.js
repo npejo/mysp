@@ -2,21 +2,33 @@
     'use strict';
 
     var Auth = new app.Entities.Auth(app.Config);
-    var User = new app.Entities.User({}, Auth.getToken(), app.Utils.ajax);
+    var User = null;
 
-    if (User.isLoggedIn()) {
-        User.loadProfile(function(err) {
+    if (Auth.getToken() === '') {
+        Auth.addLoginCallbackListener();
+
+        var loginView = new app.Views.LoginView({
+            element: 'mymp-container',
+            auth: Auth
+        });
+        loginView.render();
+    } else {
+        app.Utils.ajax.token = Auth.getToken();
+
+        User = new app.Entities.User({}, app.Utils.ajax);
+        User.loadProfile(function(err, usr) {
             if (err) {
+                // TODO: show info message
                 Auth.logout();
                 return;
             }
 
-            Auth.setId(User.getId());
+            Auth.setId(usr.getId());
 
             var hashStr = window.location.hash;
             var route = hashStr !== '' ? app.Utils.hashToObject(hashStr) : app.Config.defaultRoute;
 
-            User.loadPlaylists(function(err) {
+            usr.loadPlaylists(function(err) {
                 if (err) {
                     console.log(err);
                     console.log('problem while loading playlists');
@@ -33,14 +45,6 @@
                 appView.render();
             });
         });
-    } else {
-        Auth.addLoginCallbackListener();
-
-        var loginView = new app.Views.LoginView({
-            element: 'mymp-container',
-            auth: Auth
-        });
-        loginView.render();
     }
 
 
@@ -61,7 +65,6 @@
     }
 
     function getContentView(route) {
-        console.log(route);
         return new app.Views.ContentView({
             element: 'mymp-content',
             route: route,
@@ -70,9 +73,23 @@
                     element: 'mymp-content',
                     route: route
                 }),
-                playlist: new app.Views.PlaylistPageView({
-                    element: 'mymp-content',
-                    route: route
+                playlist: getPlaylistPageView(route)
+            }
+        });
+    }
+
+    function getPlaylistPageView(route) {
+        return new app.Views.PlaylistPageView({
+            element: 'mymp-content',
+            route: route,
+            user: User,
+            playlistModel: new app.Entities.Playlist(app.Utils.ajax),
+            subViews: {
+                playlistDetails: new app.Views.PlaylistDetailsView({
+                    element: 'playlist-details'
+                }),
+                playlistTracks: new app.Views.PlaylistTracksView({
+                    element: 'playlist-tracks'
                 })
             }
         });

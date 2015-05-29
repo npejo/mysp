@@ -6,10 +6,11 @@
 
     var CoreView = function(options) {
         this.elementId = options.element;
+        this.subViews = options.subViews || {};
+        this.route = options.route || {};
+
         this.element = null;
-        this.subViews = {};
         this.listeners = {};
-        this.route = {};
     };
 
     CoreView.prototype.clear = function() {
@@ -17,21 +18,23 @@
     };
 
     CoreView.prototype.render = function() {
+        this.renderSelf();
+        this.renderSubviews();
+    };
+
+    CoreView.prototype.renderSelf = function() {
         this.element = document.getElementById(this.elementId);
+        this.element.innerHTML = this.getTemplate();
 
-        this.selfRender();
         this.addEventListeners();
+    };
 
+    CoreView.prototype.renderSubviews = function() {
         for (var v in this.subViews) {
             if (this.subViews.hasOwnProperty(v)) {
                 this.subViews[v].render();
             }
-            console.log(this.subViews[v]);
         }
-    };
-
-    CoreView.prototype.selfRender = function() {
-        this.element.innerHTML = this.getTemplate();
     };
 
     CoreView.prototype.getTemplate = function() {
@@ -54,6 +57,10 @@
 
     CoreView.prototype.updateRoute = function(newRoute) {
         this.route = newRoute;
+    };
+
+    CoreView.prototype.goTo = function(route) {
+        window.location.hash = app.Utils.objToQuerystring(route);
     };
 
     app.Views.CoreView = CoreView;

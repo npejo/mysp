@@ -6,7 +6,6 @@
 
     var SearchPageView = function(options) {
         app.Views.CoreView.call(this, options);
-        this.route = options.route || {};
     };
 
     SearchPageView.prototype = Object.create(app.Views.CoreView.prototype);

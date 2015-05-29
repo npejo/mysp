@@ -6,7 +6,6 @@
 
     var MenuView = function(options) {
         app.Views.CoreView.call(this, options);
-        this.subViews = options.subViews || {};
     };
 
     MenuView.prototype = Object.create(app.Views.CoreView.prototype);

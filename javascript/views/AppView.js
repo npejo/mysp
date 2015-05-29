@@ -7,7 +7,6 @@
     var AppView = function(options) {
         app.Views.CoreView.call(this, options);
         this.auth = options.auth;
-        this.subViews = options.subViews || {};
     };
 
     AppView.prototype = Object.create(app.Views.CoreView.prototype);

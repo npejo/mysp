@@ -6,7 +6,6 @@
 
     var MenuView = function(options) {
         app.Views.CoreView.call(this, options);
-        this.subViews = {};
     };
 
     MenuView.prototype = Object.create(app.Views.CoreView.prototype);
@@ -16,10 +15,7 @@
             .addEventListener('click', function() {
                 var query = document.getElementById('mymp-menu-search').value;
                 if (query !== '') {
-                    window.location.hash = app.Utils.objToQuerystring({
-                        page: 'search',
-                        q: query
-                    });
+                    this.goTo({page: 'search', q: query});
                 }
             }, false);
     };

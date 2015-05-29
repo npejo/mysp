@@ -18,9 +18,11 @@
         // draw user playlists menu links
         var menuList = this.element.getElementsByClassName('menu-items-list')[0];
         var items = '';
-        this.playlists.forEach(function(playlist) {
-            items += this.drawPlaylistLink(playlist);
-        }, this);
+        for (var pl in this.playlists) {
+            if (this.playlists.hasOwnProperty(pl)) {
+                items += this.drawPlaylistLink(this.playlists[pl]);
+            }
+        }
 
         menuList.innerHTML = items;
     };
