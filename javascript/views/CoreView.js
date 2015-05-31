@@ -63,29 +63,29 @@
         window.location.hash = app.Utils.objToQuerystring(route);
     };
 
-    CoreView.prototype.delegate = function(selector, eventName, callback, contextObj) {
+    CoreView.prototype.delegate = function(selector, eventName, callback) {
         var cleanSelector = selector.substring(1);
         switch(selector.charAt(0)) {
             case '#':
-                addListenerById(cleanSelector, eventName, callback, contextObj);
+                addListenerById(cleanSelector, eventName, callback);
                 break;
             case '.':
-                addListenerByClass(cleanSelector, eventName, callback, contextObj);
+                addListenerByClass(cleanSelector, eventName, callback);
                 break;
         }
 
-        function addListenerById(elementId, eventName, callback, contextObj) {
+        function addListenerById(elementId, eventName, callback) {
             var element = document.getElementById(elementId);
             if (!element) {
                 return;
             }
 
             element.addEventListener(eventName, function() {
-                callback.call(contextObj);
+                callback();
             }, false);
         }
 
-        function addListenerByClass(className, eventName, callback, contextObj) {
+        function addListenerByClass(className, eventName, callback) {
             var elements = document.getElementsByClassName(className);
             if (!elements.length) {
                 return;
@@ -93,7 +93,7 @@
             var nbrElements = elements.length;
             for (var i=0; i < nbrElements; i++) {
                 elements[i].addEventListener(eventName, function() {
-                    callback.call(contextObj);
+                    callback();
                 }, false);
             }
         }

@@ -9,6 +9,7 @@
 
         this.user = options.user;
         this.appEvents = options.events;
+        this.playlistModel = options.playlistModel;
     };
 
     PlaylistsMenuView.prototype = Object.create(app.Views.CoreView.prototype);
@@ -33,29 +34,31 @@
     };
 
     PlaylistsMenuView.prototype.addEventListeners = function() {
-        this.appEvents.on('playlistDetailsUpdate', reRenderPlaylistMenu, this);
+        this.appEvents.on('playlistDetailsUpdate', this.reRenderPlaylistMenu.bind(this));
 
-        this.delegate('#menu-add-playlist-link', 'click', function(event) {
-            console.log(event);
-            console.log('aaaaaaaaaaaaa');
-        }, this);
+        this.delegate('#menu-add-playlist-link', 'click', this.showNewPlaylistForm.bind(this));
+        this.delegate('.menu-new-playlist-cancel-btn', 'click', this.hideNewPlaylistForm.bind(this));
+        this.delegate('.menu-new-playlist-save-btn', 'click', this.saveNewPlaylist.bind(this));
 
-        function reRenderPlaylistMenu(data) {
-            console.log(data);
-            console.log(this.user.getPlaylists());
-            this.render();
-        }
-
-        function showNewPlaylistForm(e) {
-            alert('vleze');
-            e.preventDefault();
-            console.log('show it!!!');
-        }
     };
 
     PlaylistsMenuView.prototype.getTemplate = function() {
         return '<h2 class="menu-section-header">Playlists</h2>' +
             '<a id="menu-add-playlist-link" href="#">+ Add new playlist</a>' +
+            '<div class="menu-add-playlist-form hidden">' +
+                '<div class="form-row">' +
+                    '<input type="text" class="new-playlist-name" name="new-playlist-name" value=""/>' +
+                '</div>' +
+                '<div class="form-row">' +
+                    'Private <input type="radio" class="new-playlist-type private-playlist" name="new-playlist-type" value="private" checked />&nbsp;' +
+                    'Public <input type="radio" class="new-playlist-type public-playlist" name="new-playlist-type" value="public"/>' +
+                '</div>' +
+                '<div class="form-row">' +
+                    '<button class="menu-new-playlist-save-btn">Save</button>&nbsp;' +
+                    '<button class="menu-new-playlist-cancel-btn">Cancel</button>' +
+                '</div>' +
+
+            '</div>' +
             '<ul class="menu-items-list"></ul>';
     };
 
@@ -68,6 +71,46 @@
         li.appendChild(a);
 
         return li.outerHTML;
+    };
+
+    PlaylistsMenuView.prototype.showNewPlaylistForm = function () {
+        event.preventDefault();
+        var addForm = this.element.getElementsByClassName('menu-add-playlist-form')[0];
+        var addFormNewClasses = addForm.className.replace('hidden', '');
+        addForm.className = addFormNewClasses;
+    };
+
+    PlaylistsMenuView.prototype.hideNewPlaylistForm = function () {
+        event.preventDefault();
+        var addForm = this.element.getElementsByClassName('menu-add-playlist-form')[0];
+        addForm.className += ' hidden';
+    };
+
+    PlaylistsMenuView.prototype.saveNewPlaylist = function () {
+        event.preventDefault();
+
+        var plName = this.element.getElementsByClassName('new-playlist-name')[0].value;
+        if (plName === '') {
+            return console.log('display err msg, empty pl name');
+        }
+
+        var isPublic = this.element.getElementsByClassName('public-playlist')[0].checked;
+
+        this.playlistModel.createPlaylist(
+            this.user.getId(),
+            {name: plName, 'public': isPublic},
+            function(err) {
+                if (err) return console.log('display msg error on creating new playlist!');
+
+                console.log('new playlist created');
+                this.render();
+
+            }
+        );
+    };
+
+    PlaylistsMenuView.prototype.reRenderPlaylistMenu = function () {
+        this.render();
     };
 
     app.Views.PlaylistsMenuView = PlaylistsMenuView;

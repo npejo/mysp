@@ -9,19 +9,19 @@
     };
 
     EventsModel.prototype = {
-        on: function(eventName, callback, contextObj) {
+        on: function(eventName, callback) {
             if (!this.subscriptions[eventName]) {
                 this.subscriptions[eventName] = [];
             }
-            this.subscriptions[eventName].push({obj: contextObj, method: callback});
+            this.subscriptions[eventName].push(callback);
         },
 
         trigger: function(eventName, data) {
             if (!this.subscriptions[eventName]) {
                 return;
             }
-            this.subscriptions[eventName].forEach(function(sub) {
-                sub.method.call(sub.obj, data);
+            this.subscriptions[eventName].forEach(function(callback) {
+                callback(data);
             });
         }
     };

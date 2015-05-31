@@ -23,12 +23,12 @@
         this.profile.name = name;
     };
 
-    Playlist.prototype.isPrivate = function() {
-        return !this.profile.public;
+    Playlist.prototype.isPublic = function() {
+        return this.profile.public;
     };
 
-    Playlist.prototype.setPrivate = function(isPrivate) {
-        this.profile.public = !isPrivate;
+    Playlist.prototype.setPublic = function(isPublic) {
+        this.profile.public = isPublic;
     };
 
     Playlist.prototype.setProfile = function(playlistObj) {
@@ -48,7 +48,7 @@
 
         if (this.profile.images.length === 1) {
             img = this.profile.images[0].url;
-        } else {
+        } else if (this.profile.images.length > 1) {
             var index = 0;
             switch(size) {
                 case 'large':

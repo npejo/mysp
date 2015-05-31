@@ -60,7 +60,8 @@
                 playlistsMenu: new app.Views.PlaylistsMenuView({
                     element: 'mymp-menu-playlists',
                     user: User,
-                    events: app.Events
+                    events: app.Events,
+                    playlistModel: new app.Entities.Playlist(app.Utils.ajax)
                 })
                 //'queueMenu': new app.Views.QueueMenuView({element: 'mymp-menu-queue'})
             }

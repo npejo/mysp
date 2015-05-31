@@ -5,13 +5,12 @@
 
     app.Utils.ajax.get = function(params, success, error) {
         params.method = 'GET';
-        params.data = encodeURI(params.data);
         makeRequest(params, success, error);
     };
 
     app.Utils.ajax.post = function(params, success, error) {
         params.method = 'POST';
-        params.data = params.data ? encodeURI(params.data) : '';
+        params.data = params.data ? JSON.stringify(params.data) : '';
         makeRequest(params, success, error);
     };
 
@@ -57,7 +56,7 @@
 
             } else if (typeof errorCallback === 'function') {
                 var resp = xhr.responseText !== '' ? JSON.parse(xhr.responseText) : '';
-                var error = JSON.parse(resp).error;
+                var error = resp.error;
                 var msg = error.status + ': ' + error.message;
                 errorCallback && errorCallback(new Error(msg));
             }

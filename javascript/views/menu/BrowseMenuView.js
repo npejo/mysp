@@ -11,7 +11,7 @@
     MenuView.prototype = Object.create(app.Views.CoreView.prototype);
 
     MenuView.prototype.addEventListeners = function() {
-        this.delegate('#mymp-menu-search-btn', 'click', doSearch());
+        this.delegate('#mymp-menu-search-btn', 'click', doSearch.bind(this));
 
         function doSearch() {
             var query = document.getElementById('mymp-menu-search').value;
