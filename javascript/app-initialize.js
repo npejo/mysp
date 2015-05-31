@@ -3,6 +3,7 @@
 
     var Auth = new app.Entities.Auth(app.Config);
     var User = null;
+    app.Events = new app.Entities.EventsModel();
 
     if (Auth.getToken() === '') {
         Auth.addLoginCallbackListener();
@@ -53,11 +54,13 @@
         return new app.Views.MenuView({
             element: 'mymp-menu',
             route: route,
+            events: app.Events,
             subViews: {
                 //'browseMenu': new app.Views.BrowseMenuView({element: 'mymp-menu-browse'}),
                 playlistsMenu: new app.Views.PlaylistsMenuView({
                     element: 'mymp-menu-playlists',
-                    playlists: User.getPlaylists()
+                    user: User,
+                    events: app.Events
                 })
                 //'queueMenu': new app.Views.QueueMenuView({element: 'mymp-menu-queue'})
             }
@@ -68,6 +71,7 @@
         return new app.Views.ContentView({
             element: 'mymp-content',
             route: route,
+            events: app.Events,
             subViews: {
                 search: new app.Views.SearchPageView({
                     element: 'mymp-content',
@@ -82,14 +86,18 @@
         return new app.Views.PlaylistPageView({
             element: 'mymp-content',
             route: route,
+            events: app.Events,
             user: User,
             playlistModel: new app.Entities.Playlist(app.Utils.ajax),
             subViews: {
                 playlistDetails: new app.Views.PlaylistDetailsView({
-                    element: 'playlist-details'
+                    element: 'playlist-details',
+                    events: app.Events,
+                    user: User
                 }),
                 playlistTracks: new app.Views.PlaylistTracksView({
-                    element: 'playlist-tracks'
+                    element: 'playlist-tracks',
+                    events: app.Events
                 })
             }
         });

@@ -63,5 +63,41 @@
         window.location.hash = app.Utils.objToQuerystring(route);
     };
 
+    CoreView.prototype.delegate = function(selector, eventName, callback, contextObj) {
+        var cleanSelector = selector.substring(1);
+        switch(selector.charAt(0)) {
+            case '#':
+                addListenerById(cleanSelector, eventName, callback, contextObj);
+                break;
+            case '.':
+                addListenerByClass(cleanSelector, eventName, callback, contextObj);
+                break;
+        }
+
+        function addListenerById(elementId, eventName, callback, contextObj) {
+            var element = document.getElementById(elementId);
+            if (!element) {
+                return;
+            }
+
+            element.addEventListener(eventName, function() {
+                callback.call(contextObj);
+            }, false);
+        }
+
+        function addListenerByClass(className, eventName, callback, contextObj) {
+            var elements = document.getElementsByClassName(className);
+            if (!elements.length) {
+                return;
+            }
+            var nbrElements = elements.length;
+            for (var i=0; i < nbrElements; i++) {
+                elements[i].addEventListener(eventName, function() {
+                    callback.call(contextObj);
+                }, false);
+            }
+        }
+    };
+
     app.Views.CoreView = CoreView;
 })(MYMP);

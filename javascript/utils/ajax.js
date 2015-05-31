@@ -17,7 +17,7 @@
 
     app.Utils.ajax.put = function(params, success, error) {
         params.method = 'PUT';
-        params.data = params.data ? encodeURI(params.data) : '';
+        params.data = params.data ? JSON.stringify(params.data) : '';
         makeRequest(params, success, error);
     };
 
@@ -52,16 +52,19 @@
 
         xhr.onload = function() {
             if (xhr.status === 200 && typeof successCallback === 'function') {
-                successCallback(JSON.parse(xhr.responseText), xhr);
-            }
-            else if (typeof errorCallback === 'function') {
-                var error = JSON.parse(xhr.responseText).error;
-                var msg = params.errMsg || error.status + ': ' + error.message;
-                errorCallback(new Error(msg));
+                var resp = xhr.responseText !== '' ? JSON.parse(xhr.responseText) : '';
+                successCallback && successCallback(resp, xhr);
+
+            } else if (typeof errorCallback === 'function') {
+                var resp = xhr.responseText !== '' ? JSON.parse(xhr.responseText) : '';
+                var error = JSON.parse(resp).error;
+                var msg = error.status + ': ' + error.message;
+                errorCallback && errorCallback(new Error(msg));
             }
         };
 
         if (params.data) {
+            console.log(params.data);
             xhr.send(params.data);
         } else {
             xhr.send();

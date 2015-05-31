@@ -2,7 +2,8 @@ var MYMP = {
     Config: {},
     Utils: {},
     Entities: {},
-    Views: {}
+    Views: {},
+    Events: {}
 };
 
 MYMP.Config = {

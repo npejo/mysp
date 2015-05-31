@@ -19,8 +19,16 @@
         return this.profile.name;
     };
 
+    Playlist.prototype.setName = function(name) {
+        this.profile.name = name;
+    };
+
     Playlist.prototype.isPrivate = function() {
-        return this.profile.private;
+        return !this.profile.public;
+    };
+
+    Playlist.prototype.setPrivate = function(isPrivate) {
+        this.profile.public = !isPrivate;
     };
 
     Playlist.prototype.setProfile = function(playlistObj) {

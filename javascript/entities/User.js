@@ -31,6 +31,10 @@
         return this.playlists.items[playlistId] || null;
     };
 
+    User.prototype.setPlaylist = function(playlistObj) {
+        this.playlists.items[playlistObj.id] = playlistObj;
+    };
+
     User.prototype.loadProfile = function(callback) {
         var usr = this;
         this.ajaxService.get({url: '/me'},

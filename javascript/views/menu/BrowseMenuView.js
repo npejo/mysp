@@ -11,13 +11,14 @@
     MenuView.prototype = Object.create(app.Views.CoreView.prototype);
 
     MenuView.prototype.addEventListeners = function() {
-        document.getElementById('mymp-menu-search-btn')
-            .addEventListener('click', function() {
-                var query = document.getElementById('mymp-menu-search').value;
-                if (query !== '') {
-                    this.goTo({page: 'search', q: query});
-                }
-            }, false);
+        this.delegate('#mymp-menu-search-btn', 'click', doSearch());
+
+        function doSearch() {
+            var query = document.getElementById('mymp-menu-search').value;
+            if (query !== '') {
+                this.goTo({page: 'search', q: query});
+            }
+        }
     };
 
     MenuView.prototype.getTemplate = function() {
