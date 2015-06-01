@@ -2,16 +2,16 @@
     'use strict';
 
     // create instance off application level objects
-    var Auth = new app.Entities.Auth(app.Config);
+    var Auth = new app.Models.Auth(app.Config);
     var User = null;
-    app.Events = new app.Entities.EventsModel();
+    app.Events = new app.Models.Events();
 
     // add listener for hash route change
     window.addEventListener('hashchange', function(e) {
         var hashString = e.newURL.split('#')[1];
         var route = app.Utils.hashToObject(hashString);
 
-        app.Events.trigger('routeChange', route);
+        app.Events.publish('routeChange', route);
     });
 
     if (Auth.getToken() === '') { // no logged in user
@@ -20,7 +20,7 @@
         initAppForUser();
     }
 
-    
+
     /**
      * Display login page and add listener for authentication callback
      * Init user session on successful authentication callback
@@ -41,7 +41,7 @@
         app.Utils.ajax.token = Auth.getToken();
 
         // create empty user model instance
-        User = new app.Entities.User({}, app.Utils.ajax);
+        User = new app.Models.User(app.Utils.ajax);
 
         // load user profile
         User.loadProfile(function(err, usr) {

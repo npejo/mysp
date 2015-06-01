@@ -7,6 +7,7 @@
     var ContentView = function(options) {
         app.Views.CoreView.call(this, options);
 
+        // injected dependencies
         this.route = options.route;
         this.subViews = options.subViews || {};
         this.appEvents = options.events;
@@ -17,7 +18,7 @@
     ContentView.prototype.addEventListeners = function() {
         if (!this.subscribed) {
             this.subscribed = true;
-            this.appEvents.on('ContentView', 'routeChange', this.renderNewRoute.bind(this));
+            this.appEvents.subscribe('routeChange', this.renderNewRoute.bind(this));
         }
     };
 

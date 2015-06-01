@@ -7,6 +7,7 @@
     var PlaylistsMenuView = function(options) {
         app.Views.CoreView.call(this, options);
 
+        // injected dependencies
         this.user = options.user;
         this.appEvents = options.events;
         this.playlistModel = options.playlistModel;
@@ -17,7 +18,7 @@
     PlaylistsMenuView.prototype.addEventListeners = function() {
         if (!this.subscribed) {
             this.subscribed = true;
-            this.appEvents.on('PlaylistsMenuView', 'playlistDetailsUpdate', this.render.bind(this));
+            this.appEvents.subscribe('playlistDetailsUpdate', this.render.bind(this));
         }
 
         this.delegate('#menu-add-playlist-link', 'click', this.showNewPlaylistForm.bind(this));

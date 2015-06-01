@@ -5,13 +5,17 @@
     'use strict';
 
     var CoreView = function(options) {
+
+        // local properties
+        this.element = null;
+        this.subscribed = false;
+
+        // injected dependencies
         this.elementId = options.element;
         this.subViews = options.subViews || {};
         this.route = options.route || {};
 
-        this.element = null;
-        this.listeners = {};
-        this.subscribed = false;
+
     };
 
     CoreView.prototype.render = function() {

@@ -7,9 +7,12 @@
     var PlaylistTracksView = function(options) {
         app.Views.CoreView.call(this, options);
 
+        // local property
+        this.playlistModel = null;
+
+        // injected dependencies
         this.appEvents = options.events;
 
-        this.playlistModel = null;
     };
 
     PlaylistTracksView.prototype = Object.create(app.Views.CoreView.prototype);

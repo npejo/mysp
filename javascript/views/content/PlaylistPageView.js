@@ -7,6 +7,7 @@
     var PlaylistPageView = function(options) {
         app.Views.CoreView.call(this, options);
 
+        // injected dependencies
         this.user = options.user;
         this.playlistModel = options.playlistModel;
     };

@@ -20,7 +20,7 @@
                     element: 'mymp-menu-playlists',
                     user: User,
                     events: app.Events,
-                    playlistModel: new app.Entities.Playlist(app.Utils.ajax)
+                    playlistModel: new app.Models.Playlist(app.Utils.ajax)
                 })
             }
         });
@@ -47,7 +47,7 @@
             route: route,
             events: app.Events,
             user: User,
-            playlistModel: new app.Entities.Playlist(app.Utils.ajax),
+            playlistModel: new app.Models.Playlist(app.Utils.ajax),
             subViews: {
                 playlistDetails: new app.Views.PlaylistDetailsView({
                     element: 'playlist-details',

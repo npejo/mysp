@@ -1,7 +1,7 @@
 var MYMP = {
     Config: {},
     Utils: {},
-    Entities: {},
+    Models: {},
     Views: {},
     ViewsConfig: {},
     Events: {}

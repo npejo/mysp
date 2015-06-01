@@ -6,6 +6,8 @@
 
     var AppView = function(options) {
         app.Views.CoreView.call(this, options);
+
+        // injected dependencies
         this.auth = options.auth;
     };
 

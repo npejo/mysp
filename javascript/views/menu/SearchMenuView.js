@@ -7,10 +7,13 @@
     var SearchMenuView = function(options) {
         app.Views.CoreView.call(this, options);
 
+        // local property
+        this.hideSearch = false;
+
+        // injected dependencies
         this.route = options.route;
         this.appEvents = options.events;
 
-        this.hideSearch = false;
     };
 
     SearchMenuView.prototype = Object.create(app.Views.CoreView.prototype);
@@ -18,7 +21,7 @@
     SearchMenuView.prototype.addEventListeners = function() {
         if (!this.subscribed) {
             this.subscribed = true;
-            this.appEvents.on('SearchMenuView', 'routeChange', this.reRenderSearchMenuSection.bind(this));
+            this.appEvents.subscribe('routeChange', this.reRenderSearchMenuSection.bind(this));
         }
 
         this.delegate('#mymp-menu-search-btn', 'click', this.doSearch.bind(this));

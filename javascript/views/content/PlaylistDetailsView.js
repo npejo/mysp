@@ -7,10 +7,13 @@
     var PlaylistDetailsView = function(options) {
         app.Views.CoreView.call(this, options);
 
+        // local property
+        this.viewState = null;
+
+        // injected dependencies
         this.appEvents = options.events;
         this.user = options.user;
         this.playlistModel = null;
-        this.viewState = null;
     };
 
     PlaylistDetailsView.prototype = Object.create(app.Views.CoreView.prototype);
@@ -92,8 +95,8 @@
             function(err) {
                 if (err) return console.log('problem while updating playlist details');
 
-                self.user.setPlaylist(self.playlistModel.getProfile());
-                self.appEvents.trigger('playlistDetailsUpdate');
+                self.user.setPlaylist(self.playlistModel.getData());
+                self.appEvents.publish('playlistDetailsUpdate');
                 self.viewState = 'view';
                 self.render();
             }
