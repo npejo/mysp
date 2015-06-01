@@ -21,12 +21,13 @@
 
     PlaylistDetailsView.prototype.addEventListeners = function() {
 
-        this.delegate('.playlist-details-edit', 'click', setEditViewState.bind(this));
+        this.delegate('.playlist-details-edit', 'click', setViewMode.bind(this, 'edit'));
+        this.delegate('.playlist-details-cancel', 'click', setViewMode.bind(this, 'view'));
         this.delegate('.playlist-details-save', 'click', this.savePlaylistDetails.bind(this));
 
         //var self = this;
-        function setEditViewState() {
-            this.viewState = 'edit';
+        function setViewMode(mode) {
+            this.viewState = mode;
             this.render();
         }
     };
@@ -66,7 +67,9 @@
             tmp += '<img class="playlist-image" src="' + image + '"/>';
         }
 
-        tmp += '<button class="playlist-details-save">Save</button>';
+        tmp += '<button class="playlist-details-save">Save</button>&nbsp;' +
+            '<button class="playlist-details-cancel">Cancel</button>';
+
         return tmp;
     };
 

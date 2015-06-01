@@ -5,6 +5,13 @@
     var User = null;
     app.Events = new app.Entities.EventsModel();
 
+    window.addEventListener('hashchange', function(e) {
+        var hashString = e.newURL.split('#')[1];
+        var route = app.Utils.hashToObject(hashString);
+
+        app.Events.trigger('routeChange', route);
+    });
+
     if (Auth.getToken() === '') {
         Auth.addLoginCallbackListener();
 
@@ -56,14 +63,17 @@
             route: route,
             events: app.Events,
             subViews: {
-                //'browseMenu': new app.Views.BrowseMenuView({element: 'mymp-menu-browse'}),
+                browseMenu: new app.Views.SearchMenuView({
+                    element: 'mymp-menu-search',
+                    route: route,
+                    events: app.Events
+                }),
                 playlistsMenu: new app.Views.PlaylistsMenuView({
                     element: 'mymp-menu-playlists',
                     user: User,
                     events: app.Events,
                     playlistModel: new app.Entities.Playlist(app.Utils.ajax)
                 })
-                //'queueMenu': new app.Views.QueueMenuView({element: 'mymp-menu-queue'})
             }
         });
     }

@@ -9,28 +9,21 @@
 
         this.route = options.route;
         this.subViews = options.subViews || {};
+        this.appEvents = options.events;
     };
 
     ContentView.prototype = Object.create(app.Views.CoreView.prototype);
 
     ContentView.prototype.addEventListeners = function() {
-        var event = 'window-hashchange';
-        if (this.checkListener(event)) {
-            return;
+        if (!this.subscribed) {
+            this.subscribed = true;
+            this.appEvents.on('ContentView', 'routeChange', this.renderNewRoute.bind(this));
         }
-
-        var that = this;
-        window.addEventListener("hashchange", function(e) {
-            var hashString = e.newURL.split('#')[1];
-            that.route = app.Utils.hashToObject(hashString);
-            that.render();
-        }, false);
-        this.addListener(event);
     };
 
     ContentView.prototype.render = function() {
         this.renderSelf();
-        var currentView = this.subViews[app.Config.defaultRoute];
+        var currentView = this.subViews[app.Config.defaultRoute.page];
         if (this.subViews[this.route.page]) {
             currentView = this.subViews[this.route.page];
         }
@@ -40,6 +33,11 @@
 
     ContentView.prototype.getTemplate = function() {
         return '<div><pre>' + JSON.stringify(this.route) + '</div>';
+    };
+
+    ContentView.prototype.renderNewRoute = function(newRoute) {
+        this.route = newRoute;
+        this.render();
     };
 
     app.Views.ContentView = ContentView;

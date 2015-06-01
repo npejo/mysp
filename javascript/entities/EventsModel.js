@@ -9,7 +9,8 @@
     };
 
     EventsModel.prototype = {
-        on: function(eventName, callback) {
+        on: function(object, eventName, callback) {
+            console.log(this.subscriptions);
             if (!this.subscriptions[eventName]) {
                 this.subscriptions[eventName] = [];
             }

@@ -113,11 +113,11 @@
                 console.log('playlists created');
                 self.profile = response;
 
-                callback();
+                callback(null, response);
 
             }, function(err) {
                 console.log(err.message);
-                callback(err);
+                callback(err, null);
             }
         );
     };
@@ -144,15 +144,14 @@
         );
     };
 
-    Playlist.prototype.removeTrack = function(uri, position, callback) {
+    Playlist.prototype.removeTrack = function(uri, callback) {
         var self = this;
         this.ajaxService.delete(
             {
                 url: self.profile.tracks.href,
                 data: {
                     tracks: [{
-                        uri: uri,
-                        positions: [position]
+                        uri: uri
                     }]
                 }
             },

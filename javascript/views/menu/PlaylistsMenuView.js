@@ -14,6 +14,18 @@
 
     PlaylistsMenuView.prototype = Object.create(app.Views.CoreView.prototype);
 
+    PlaylistsMenuView.prototype.addEventListeners = function() {
+        if (!this.subscribed) {
+            this.subscribed = true;
+            this.appEvents.on('PlaylistsMenuView', 'playlistDetailsUpdate', this.render.bind(this));
+        }
+
+        this.delegate('#menu-add-playlist-link', 'click', this.showNewPlaylistForm.bind(this));
+        this.delegate('.menu-new-playlist-cancel-btn', 'click', this.hideNewPlaylistForm.bind(this));
+        this.delegate('.menu-new-playlist-save-btn', 'click', this.saveNewPlaylist.bind(this));
+
+    };
+
     PlaylistsMenuView.prototype.render = function() {
         this.renderSelf();
 
@@ -31,15 +43,6 @@
         }
 
         menuList.innerHTML = content;
-    };
-
-    PlaylistsMenuView.prototype.addEventListeners = function() {
-        this.appEvents.on('playlistDetailsUpdate', this.reRenderPlaylistMenu.bind(this));
-
-        this.delegate('#menu-add-playlist-link', 'click', this.showNewPlaylistForm.bind(this));
-        this.delegate('.menu-new-playlist-cancel-btn', 'click', this.hideNewPlaylistForm.bind(this));
-        this.delegate('.menu-new-playlist-save-btn', 'click', this.saveNewPlaylist.bind(this));
-
     };
 
     PlaylistsMenuView.prototype.getTemplate = function() {
@@ -96,21 +99,18 @@
 
         var isPublic = this.element.getElementsByClassName('public-playlist')[0].checked;
 
+        var self = this;
         this.playlistModel.createPlaylist(
             this.user.getId(),
             {name: plName, 'public': isPublic},
-            function(err) {
+            function(err, playlist) {
                 if (err) return console.log('display msg error on creating new playlist!');
 
+                self.user.setPlaylist(playlist);
+                self.render();
                 console.log('new playlist created');
-                this.render();
-
             }
         );
-    };
-
-    PlaylistsMenuView.prototype.reRenderPlaylistMenu = function () {
-        this.render();
     };
 
     app.Views.PlaylistsMenuView = PlaylistsMenuView;

@@ -22,6 +22,7 @@
 
     app.Utils.ajax.delete = function(params, success, error) {
         params.method = 'DELETE';
+        params.data = params.data ? JSON.stringify(params.data) : '';
         makeRequest(params, success, error);
     };
 
@@ -50,15 +51,19 @@
         }
 
         xhr.onload = function() {
-            if (xhr.status === 200 && typeof successCallback === 'function') {
+            if ((xhr.status === 200 || xhr.status === 201)
+                && typeof successCallback === 'function') {
+
                 var resp = xhr.responseText !== '' ? JSON.parse(xhr.responseText) : '';
-                successCallback && successCallback(resp, xhr);
+                successCallback(resp, xhr);
 
             } else if (typeof errorCallback === 'function') {
                 var resp = xhr.responseText !== '' ? JSON.parse(xhr.responseText) : '';
+
                 var error = resp.error;
                 var msg = error.status + ': ' + error.message;
-                errorCallback && errorCallback(new Error(msg));
+
+                errorCallback(new Error(msg));
             }
         };
 
