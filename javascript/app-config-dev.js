@@ -1,4 +1,7 @@
 (function(app) {
+    /**
+     * DEVELOPMENT configuration
+     */
     app.Config = {
         host: 'http://localhost:8888',
         appPrefix: 'mymp-',

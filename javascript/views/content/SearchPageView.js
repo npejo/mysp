@@ -1,27 +1,36 @@
-/**
- *
- */
 (function(app) {
     'use strict';
 
+    /**
+     * Handles the rendering and actions of playlist page
+     *
+     * @extends CoreView
+     * @param options
+     * @constructor
+     */
     var SearchPageView = function(options) {
+        // invoke the constructor of the parent object
         app.Views.CoreView.call(this, options);
     };
 
+    // chain the prototype of the parent object
     SearchPageView.prototype = Object.create(app.Views.CoreView.prototype);
 
-    SearchPageView.prototype.addEventListeners = function() {
-        console.log(this.element);
-        this.element.getElementsByClassName('dummy-link')[0]
-            .addEventListener('click', function() {
-                console.log({nikola: 123});
-            }, false);
+    /**
+     * Render the playlist page
+     */
+    SearchPageView.prototype.render = function() {
+
     };
 
+    /**
+     * Return the main layout of the search page as string
+     *
+     * @returns {string}
+     */
     SearchPageView.prototype.getTemplate = function() {
-        return '<h1>This is the search page</h1>' +
-            'you are searching for: ' + (this.route.q || 'nothing') +
-            '<br/><a href="javascript://" class="dummy-link">klikaj</a>';
+        return '<div id="search-form"></div>' +
+            '<div id="search-results"></div>';
     };
     
     app.Views.SearchPageView = SearchPageView;

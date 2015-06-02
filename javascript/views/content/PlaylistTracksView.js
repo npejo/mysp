@@ -1,10 +1,15 @@
-/**
- *
- */
 (function(app) {
     'use strict';
 
+    /**
+     * Handles the rendering and actions of playlist tracks section
+     *
+     * @extends CoreView
+     * @param options
+     * @constructor
+     */
     var PlaylistTracksView = function(options) {
+        // invoke the constructor of the parent object
         app.Views.CoreView.call(this, options);
 
         // local property
@@ -15,18 +20,28 @@
 
     };
 
+    // chain the prototype of the parent object
     PlaylistTracksView.prototype = Object.create(app.Views.CoreView.prototype);
 
+    /**
+     * Bind event actions on elements within the view
+     */
     PlaylistTracksView.prototype.addEventListeners = function() {
-        this.delegate('.playlist-track-remove', 'click', this.removeTrackFromPlaylist.bind(this));
+        // bind remove track action
+        this.addListener('.playlist-track-remove', 'click', this.removeTrackFromPlaylist.bind(this));
     };
 
+    /**
+     * Render the table with playlist tracks
+     */
     PlaylistTracksView.prototype.render = function() {
         this.renderSelf(true);
 
         var tracks = this.playlistModel.getTracks();
 
         var trackList = '';
+
+        // draw row for each track
         tracks.forEach(function(track) {
             var track = track.track;
             trackList += '<tr id="track-' + track.uri + '">' +
@@ -43,6 +58,11 @@
         this.addEventListeners();
     };
 
+    /**
+     * Return the tracks table template as string
+     *
+     * @returns {string}
+     */
     PlaylistTracksView.prototype.getTemplate = function() {
         return '<table id="playlist-tracks-list">' +
             '<thead>' +
@@ -54,10 +74,22 @@
             '</table>';
     };
 
+    /**
+     * Inject/Set the `playlistModel` dependency
+     *
+     * @param playlistModel
+     */
     PlaylistTracksView.prototype.setPlaylistService = function(playlistModel) {
         this.playlistModel = playlistModel;
     };
 
+    /**
+     * Build the template for track artists
+     *
+     * @private
+     * @param trackModel
+     * @returns {string}
+     */
     PlaylistTracksView.prototype.showArtists = function(trackModel) {
         var artists = '';
         trackModel.artists.forEach(function(artist) {
@@ -68,6 +100,13 @@
         return artists.substring(2);
     };
 
+    /**
+     * Build the template for track album
+     *
+     * @private
+     * @param trackModel
+     * @returns {string}
+     */
     PlaylistTracksView.prototype.showAlbum = function(trackModel) {
         var album = '';
 
@@ -78,6 +117,9 @@
         return album;
     };
 
+    /**
+     * Remove track from playlist
+     */
     PlaylistTracksView.prototype.removeTrackFromPlaylist = function() {
         event.preventDefault();
         var trackUri = event.currentTarget.rel;

@@ -2,6 +2,12 @@
     'use strict';
     app.Utils = app.Utils || {};
 
+    /**
+     * Parse the input hash/querystring ('&paramName=value') into {paramName: value} object
+     *
+     * @param hash
+     * @returns {object}
+     */
     app.Utils.hashToObject = function (hash) {
         var obj = {};
 
@@ -19,6 +25,12 @@
         return obj;
     };
 
+    /**
+     * Parse the input {paramName: value} object into querystring ('&paramName=value')
+     *
+     * @param object
+     * @returns {string}
+     */
     app.Utils.objToQuerystring = function (object) {
         var encodedString = '';
         for (var prop in object) {

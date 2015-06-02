@@ -46,18 +46,6 @@
 
     CoreView.prototype.addEventListeners = function() {};
 
-    //CoreView.prototype.checkListener = function(element, eventType) {
-    //    return !!this.listeners[element + '-' + eventType];
-    //};
-
-    //CoreView.prototype.addListener = function(element, eventType) {
-    //    if (this.listeners[element + '-' + eventType]) {
-    //        throw new Error('Event listener for ' + element + '-' + eventType + ' already exists!');
-    //    }
-    //
-    //    this.listeners[element + '-' + eventType] = true;
-    //};
-
     CoreView.prototype.updateRoute = function(newRoute) {
         this.route = newRoute;
     };
@@ -66,13 +54,7 @@
         window.location.hash = app.Utils.objToQuerystring(route);
     };
 
-    CoreView.prototype.delegate = function(selector, eventName, callback) {
-        //var listenerName = selector + '-' + eventName;
-        //if (this.checkListener(listenerName)) {
-        //    return;
-        //} else {
-        //    this.addListener(listenerName);
-        //}
+    CoreView.prototype.addListener = function(selector, eventName, callback) {
         var cleanSelector = selector.substring(1);
         switch(selector.charAt(0)) {
             case '#':
@@ -81,9 +63,6 @@
             case '.':
                 addListenerByClass(cleanSelector, eventName, callback);
                 break;
-            //case 'window':
-            //    window.addEventListener(eventName, callback, false);
-            //    break;
         }
 
         function addListenerById(elementId, eventName, callback) {
