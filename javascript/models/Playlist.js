@@ -77,7 +77,7 @@
      * @returns {object}
      */
     Playlist.prototype.getTracks = function() {
-        return this.tracks.items;
+        return this.tracks;
     };
 
     /**
@@ -119,9 +119,11 @@
             function(response) { // success
                 console.log('tracks loaded');
                 // update the playlist `tracks` property with loaded data
-                self.tracks = response;
+                self.tracks = response.items.map(function(obj) {
+                    return obj.track;
+                });
 
-                callback(null, response.items);
+                callback(null, self.tracks);
 
             }, function(err) { // error
                 console.log(err);

@@ -13,6 +13,7 @@
         app.Views.CoreView.call(this, options);
 
         // injected dependencies
+        this.route = options.route;
         this.user = options.user;
         this.playlistModel = options.playlistModel;
     };
@@ -46,8 +47,8 @@
         this.playlistModel.setProfile(playlist);
 
         // inject the loaded playlist model into page subViews
-        this.subViews['playlistDetails'].setPlaylistService(this.playlistModel);
-        this.subViews['playlistTracks'].setPlaylistService(this.playlistModel);
+        this.subViews['playlistDetails'].setPlaylistModel(this.playlistModel);
+        this.subViews['playlistTracks'].setPlaylistModel(this.playlistModel);
 
         // load playlist tracks
         var self = this;
@@ -68,8 +69,8 @@
      * @returns {string}
      */
     PlaylistPageView.prototype.getTemplate = function() {
-        return '<div id="playlist-details"></div>' +
-            '<div id="playlist-tracks"></div>';
+        return '<div id="mymp-playlist-details"></div>' +
+            '<div id="mymp-playlist-tracks"></div>';
     };
 
     app.Views.PlaylistPageView = PlaylistPageView;

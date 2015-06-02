@@ -53,7 +53,7 @@
      *
      * @param playlistModel
      */
-    PlaylistDetailsView.prototype.setPlaylistService = function(playlistModel) {
+    PlaylistDetailsView.prototype.setPlaylistModel = function(playlistModel) {
         this.playlistModel = playlistModel;
     };
 

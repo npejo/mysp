@@ -1,6 +1,3 @@
-/**
- *
- */
 (function(app) {
     'use strict';
 
@@ -28,7 +25,7 @@
         this.element.innerHTML = this.getTemplate();
 
         if (!ignoreBinding) {
-            this .addEventListeners();
+            this.addEventListeners();
         }
     };
 
@@ -48,6 +45,14 @@
 
     CoreView.prototype.updateRoute = function(newRoute) {
         this.route = newRoute;
+    };
+
+    CoreView.prototype.updateSubviewsRoute = function(newRoute) {
+        for (var v in this.subViews) {
+            if (this.subViews.hasOwnProperty(v)) {
+                this.subViews[v].updateRoute(newRoute);
+            }
+        }
     };
 
     CoreView.prototype.goTo = function(route) {

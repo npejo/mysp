@@ -4,7 +4,16 @@
     app.ViewsConfig.menu = getMenuView;
     app.ViewsConfig.content = getContentView;
     app.ViewsConfig.playlistPage = getPlaylistPageView;
+    app.ViewsConfig.searchPage = getSearchPageView;
 
+    /**
+     * Return configured instance of the main menu view
+     * with all subviews
+     *
+     * @param route
+     * @param User
+     * @returns {MYMP.Views.MenuView}
+     */
     function getMenuView(route, User) {
         return new app.Views.MenuView({
             element: 'mymp-menu',
@@ -26,37 +35,76 @@
         });
     }
 
+    /**
+     * Return configured instance of the content view
+     * with all subviews
+     *
+     * @param route
+     * @param User
+     * @returns {MYMP.Views.ContentView}
+     */
     function getContentView(route, User) {
         return new app.Views.ContentView({
             element: 'mymp-content',
             route: route,
             events: app.Events,
             subViews: {
-                search: new app.Views.SearchPageView({
-                    element: 'mymp-content',
-                    route: route
-                }),
+                search: app.ViewsConfig.searchPage(route, User),
                 playlist: app.ViewsConfig.playlistPage(route, User)
             }
         });
     }
 
+    /**
+     * Return configured instance of the playlist page view
+     * with all subviews
+     *
+     * @param route
+     * @param User
+     * @returns {MYMP.Views.PlaylistPageView}
+     */
     function getPlaylistPageView(route, User) {
         return new app.Views.PlaylistPageView({
             element: 'mymp-content',
             route: route,
-            events: app.Events,
             user: User,
             playlistModel: new app.Models.Playlist(app.Utils.ajax),
             subViews: {
                 playlistDetails: new app.Views.PlaylistDetailsView({
-                    element: 'playlist-details',
+                    element: 'mymp-playlist-details',
                     events: app.Events,
                     user: User
                 }),
                 playlistTracks: new app.Views.PlaylistTracksView({
-                    element: 'playlist-tracks',
+                    element: 'mymp-playlist-tracks',
+                    events: app.Events,
+                    TracksTableView: app.Views.TracksTableView
+                })
+            }
+        });
+    }
+
+    /**
+     * Return configured instance of the search page view
+     * with all subviews
+     *
+     * @param route
+     * @returns {MYMP.Views.SearchPageView}
+     */
+    function getSearchPageView(route) {
+        return new app.Views.SearchPageView({
+            element: 'mymp-content',
+            route: route,
+            subViews: {
+                searchForm: new app.Views.SearchFormView({
+                    element: 'mymp-search-form',
                     events: app.Events
+                }),
+                searchResults: new app.Views.SearchResultsView({
+                    element: 'mymp-search-results',
+                    events: app.Events,
+                    searchModel: new app.Models.Search(app.Utils.ajax),
+                    TracksTableView: app.Views.TracksTableView
                 })
             }
         });
