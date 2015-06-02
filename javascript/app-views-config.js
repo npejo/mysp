@@ -78,6 +78,7 @@
                 playlistTracks: new app.Views.PlaylistTracksView({
                     element: 'mymp-playlist-tracks',
                     events: app.Events,
+                    user: User,
                     TracksTableView: app.Views.TracksTableView
                 })
             }
@@ -91,7 +92,7 @@
      * @param route
      * @returns {MYMP.Views.SearchPageView}
      */
-    function getSearchPageView(route) {
+    function getSearchPageView(route, User) {
         return new app.Views.SearchPageView({
             element: 'mymp-content',
             route: route,
@@ -103,7 +104,9 @@
                 searchResults: new app.Views.SearchResultsView({
                     element: 'mymp-search-results',
                     events: app.Events,
+                    user: User,
                     searchModel: new app.Models.Search(app.Utils.ajax),
+                    playlistModel: new app.Models.Playlist(app.Utils.ajax),
                     TracksTableView: app.Views.TracksTableView
                 })
             }

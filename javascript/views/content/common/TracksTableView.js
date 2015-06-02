@@ -7,8 +7,9 @@
      * @param options
      * @constructor
      */
-    var TracksTableView = function(tracks, actions) {
+    var TracksTableView = function(tracks, playlists, actions) {
         this.tracks = tracks;
+        this.playlists = playlists;
         this.actions = actions;
     };
 
@@ -63,13 +64,43 @@
      * @returns {string}
      */
     TracksTableView.prototype.drawTrackRow = function(track) {
-        return '<tr id="track-' + track.uri + '">' +
+        var row = '<tr id="track-' + track.uri + '">' +
             '<td>' + track.name + '</td>' +
             '<td>' + this.showArtists(track) + '</td>' +
             '<td>' + this.showAlbum(track) + '</td>' +
-            '<td>' + track.duration_ms + '</td>' +
-            '<td><a href="#" class="mymp-playlist-track-remove" rel="' + track.uri + '">Remove</a></td>' +
-            '</tr>';
+            '<td>' + track.duration_ms + '</td>';
+
+        // add actions
+        row += '<td>&nbsp;';
+        if (this.actions.indexOf('add-to') !== -1) {
+            row += '&nbsp;<select style="width: 200px;" class="mymp-search-results-add-to">'
+                + this.drawAddToOptions(track) +
+            '</select>';
+        }
+        if (this.actions.indexOf('remove') !== -1) {
+            row += '&nbsp;<a href="#" class="mymp-playlist-track-remove" rel="' + track.uri + '">Remove</a>';
+        }
+
+        row += '</td></tr>';
+
+        return row;
+    };
+
+    TracksTableView.prototype.drawAddToOptions = function(track) {
+        var options = '<option val="">Add To...</option>' +
+            '<option disabled>--------------------</option>' +
+            '<option value="current-queue">Current Queue</option>' +
+            '<option disabled>-------- or --------</option>';
+
+        for (var id in this.playlists) {
+            if (this.playlists.hasOwnProperty(id)) {
+                options += '<option value="' + id + '" data-track-uri="' + track.uri + '">'
+                    + this.playlists[id].name +
+                    '</option>';
+            }
+        }
+
+        return options;
     };
 
     /**

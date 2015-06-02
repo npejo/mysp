@@ -13,6 +13,7 @@
         app.Views.CoreView.call(this, options);
 
         // injected dependencies
+        this.user = options.user;
         this.TracksTableView = options.TracksTableView;
         this.playlistModel = options.playlistModel || null; // optional in constructor
     };
@@ -35,11 +36,12 @@
         this.renderSelf(true);
 
         var tracks = this.playlistModel.getTracks();
+        var userPlaylists = this.user.getPlaylists();
 
-        var tracksTableView = new this.TracksTableView(tracks);
-        var tableTpl = tracksTableView.render();
+        // get the markup for the search results table
+        var trackTableTpl = (new this.TracksTableView(tracks, userPlaylists, ['remove'])).render();
 
-        this.element.innerHTML = tableTpl;
+        this.element.innerHTML = trackTableTpl;
 
         this.addEventListeners();
     };

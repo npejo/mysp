@@ -185,6 +185,7 @@
      * `uris` parameter should be array of one or more track `uri`
      */
     Playlist.prototype.addTracks = function(uris, callback) {
+        console.log(this);
         var self = this;
         this.ajaxService.post(
             {

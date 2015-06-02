@@ -14,7 +14,9 @@
         app.Views.CoreView.call(this, options);
 
         this.appEvents = options.events;
+        this.user = options.user;
         this.searchModel = options.searchModel;
+        this.playlistModel = options.playlistModel;
         this.TracksTableView = options.TracksTableView;
     };
 
@@ -26,7 +28,8 @@
      */
     SearchResultsView.prototype.addEventListeners = function() {
         // bind click to load next results button
-        this.addListener('.mymp-next-search-results', 'click', this.loadNextResults.bind(this));
+        this.addListener('.mymp-search-results-next', 'click', this.loadNextResults.bind(this));
+        this.addListener('.mymp-search-results-add-to', 'change', this.trackAddTo.bind(this));
     };
 
     /**
@@ -65,8 +68,14 @@
      * @returns {string}
      */
     SearchResultsView.prototype.drawResults = function() {
+        var userPlaylists = this.user.getPlaylists();
+
         // get the markup for the search results table
-        var resultsTable = (new this.TracksTableView(this.searchModel.tracks)).render();
+        var resultsTable = (new this.TracksTableView(
+            this.searchModel.tracks,
+            userPlaylists,
+            ['add-to']
+        )).render();
 
         if (this.searchModel.hasNextResults()) {
             var loadNextBtn = '<button class="mymp-next-search-results">Load more</button>';
@@ -75,7 +84,7 @@
     };
 
     /**
-     * Load next results for the same search query
+     * Handler for load next results for the same search query
      */
     SearchResultsView.prototype.loadNextResults = function() {
         var self = this;
@@ -84,6 +93,37 @@
 
             self.render();
         });
+    };
+
+    /**
+     * Handler for adding track to current queue or specific playlist
+     */
+    SearchResultsView.prototype.trackAddTo = function() {
+        var self = this;
+        var targetElement = window.event.currentTarget;
+        var selectedOption = targetElement.options[targetElement.selectedIndex];
+        var currentValue = targetElement.value;
+
+        // do nothing if current value is empty
+        if (currentValue === '') {
+            return;
+        }
+
+        if (currentValue === 'current-queue') {
+            console.log('add track to queue');
+        } else {
+            var trackUri = selectedOption.getAttribute('data-track-uri');
+            var playlistProfile = this.user.getPlaylist(currentValue);
+
+            this.playlistModel.setProfile(playlistProfile);
+            this.playlistModel.addTracks([trackUri], function(err) {
+                if (err) return console.log('error while adding track to list');
+
+                console.log('The track was added to ' + self.playlistModel.getName());
+            });
+        }
+        // reset current selection of target element
+        targetElement.selectedIndex = 0;
     };
 
     app.Views.SearchResultsView = SearchResultsView;
