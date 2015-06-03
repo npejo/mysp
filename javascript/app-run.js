@@ -72,8 +72,8 @@
                     auth: Auth,
                     user: User,
                     subViews: {
-                        menu: app.ViewsConfig.menu(route, User),
-                        content: app.ViewsConfig.content(route, User)
+                        menu: app.ViewsConfig.menu(route, User, Auth),
+                        content: app.ViewsConfig.content(route, User, Auth)
                     }
                 });
                 appView.render();

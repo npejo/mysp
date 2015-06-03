@@ -17,6 +17,7 @@
         this.user = options.user;
         this.searchModel = options.searchModel;
         this.playlistModel = options.playlistModel;
+        this.queueModel = options.queueModel;
         this.TracksTableView = options.TracksTableView;
     };
 
@@ -39,7 +40,7 @@
         this.renderSelf(true);
 
         // display logo by default
-        this.element.innerHTML = '<p>Hi, you are in <b>MY Spotify Player</b></p>' +
+        this.element.innerHTML = '<p>Hello, this is <b>MY Spotify Player</b></p>' +
             '<p>Your playlist from Spotify are displayed in the left column.</p>' +
             '<p>You can manage the tracks or create new playlists from here.</p>';
 
@@ -77,9 +78,11 @@
 
         // get the markup for the search results table
         var resultsTable = (new this.TracksTableView(
-            this.searchModel.tracks,
-            userPlaylists,
-            ['add-to']
+            {
+                tracks: this.searchModel.tracks,
+                playlists: userPlaylists,
+                actions: ['add-to']
+            }
         )).render();
 
         var loadNextBtn = '';
@@ -107,7 +110,6 @@
     SearchResultsView.prototype.trackAddTo = function() {
         var self = this;
         var targetElement = window.event.currentTarget;
-        var selectedOption = targetElement.options[targetElement.selectedIndex];
         var currentValue = targetElement.value;
 
         // do nothing if current value is empty
@@ -115,21 +117,31 @@
             return;
         }
 
+        var trackUri = targetElement.getAttribute('data-track-uri');
+
         if (currentValue === 'current-queue') {
-            console.log('add track to queue');
+            var tModel = this.searchModel.getTrackModel(trackUri);
+            if (tModel) {
+                this.queueModel.addTracks(tModel);
+                // reset current selection of target element
+                targetElement.selectedIndex = 0;
+                console.log('track added to current queue');
+            } else {
+                console.log('The track data is not found');
+            }
         } else {
-            var trackUri = selectedOption.getAttribute('data-track-uri');
             var playlistProfile = this.user.getPlaylist(currentValue);
 
             this.playlistModel.setProfile(playlistProfile);
             this.playlistModel.addTracks([trackUri], function(err) {
-                if (err) return console.log('error while adding track to list');
+                // reset current selection of target element
+                targetElement.selectedIndex = 0;
 
+                if (err) return console.log('error while adding track to list');
                 console.log('The track was added to ' + self.playlistModel.getName());
             });
         }
-        // reset current selection of target element
-        targetElement.selectedIndex = 0;
+
     };
 
     app.Views.SearchResultsView = SearchResultsView;

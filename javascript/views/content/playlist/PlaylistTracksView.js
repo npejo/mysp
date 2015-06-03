@@ -39,7 +39,13 @@
         var userPlaylists = this.user.getPlaylists();
 
         // get the markup for the search results table
-        var trackTableTpl = (new this.TracksTableView(tracks, userPlaylists, ['remove'])).render();
+        var trackTableTpl = (new this.TracksTableView(
+                {
+                    tracks: tracks,
+                    playlists: userPlaylists,
+                    actions: ['remove-from-playlist']
+                }
+            )).render();
 
         this.element.innerHTML = trackTableTpl;
 

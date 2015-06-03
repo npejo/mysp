@@ -9,6 +9,7 @@
      */
     var Search = function(ajaxService) {
         this.tracks = [];
+        this.tracksObjMap = {};
         this.nextResultsUrl = '';
         this.currentQuery = '';
         // injected dependencies
@@ -47,6 +48,7 @@
         this.currentQuery = q;
         this.nextResultsUrl = '';
         this.tracks = [];
+        this.tracksObjMap = {};
     };
 
     Search.prototype.hasNextResults = function() {
@@ -65,6 +67,7 @@
                 if (response.tracks.items) {
                     // append the response items to `tracks` array
                     self.tracks = self.tracks.concat(response.tracks.items);
+                    self.appendToObjMap(response.tracks.items);
 
                     // update the url for loading the next results
                     self.nextResultsUrl = response.tracks.next;
@@ -77,5 +80,28 @@
             }
         );
     };
+
+    /**
+     * Map tracks list as object with the trackUri as key
+     * The enable easy lookup for specific track
+     *
+     * @param tracks
+     */
+    Search.prototype.appendToObjMap = function(tracks) {
+        tracks.forEach(function(t) {
+            this.tracksObjMap[t.uri] = t;
+        }, this);
+    };
+
+    /**
+     * Return track object
+     *
+     * @param trackUri
+     * @returns {object}
+     */
+    Search.prototype.getTrackModel = function(trackUri) {
+        return this.tracksObjMap[trackUri] ? this.tracksObjMap[trackUri] : null;
+    };
+
     app.Models.Search = Search;
 })(MYMP);

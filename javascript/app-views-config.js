@@ -4,6 +4,7 @@
     app.ViewsConfig.menu = getMenuView;
     app.ViewsConfig.content = getContentView;
     app.ViewsConfig.playlistPage = getPlaylistPageView;
+    app.ViewsConfig.queuePage = getQueuePageView;
     app.ViewsConfig.searchPage = getSearchPageView;
 
     /**
@@ -50,7 +51,8 @@
             events: app.Events,
             subViews: {
                 search: app.ViewsConfig.searchPage(route, User),
-                playlist: app.ViewsConfig.playlistPage(route, User)
+                playlist: app.ViewsConfig.playlistPage(route, User),
+                queue: app.ViewsConfig.queuePage(route, User)
             }
         });
     }
@@ -63,11 +65,12 @@
      * @param User
      * @returns {MYMP.Views.PlaylistPageView}
      */
-    function getPlaylistPageView(route, User) {
+    function getPlaylistPageView(route, User, Auth) {
         return new app.Views.PlaylistPageView({
             element: 'mymp-content',
             route: route,
             user: User,
+            auth: Auth,
             playlistModel: new app.Models.Playlist(app.Utils.ajax),
             subViews: {
                 playlistDetails: new app.Views.PlaylistDetailsView({
@@ -79,6 +82,25 @@
                     element: 'mymp-playlist-tracks',
                     events: app.Events,
                     user: User,
+                    TracksTableView: app.Views.TracksTableView
+                })
+            }
+        });
+    }
+
+    /**
+     * Return configured instance of the current playing queue page with all subviews
+     *
+     * @returns {MYMP.Views.QueuePageView}
+     */
+    function getQueuePageView() {
+        return new app.Views.QueuePageView({
+            element: 'mymp-content',
+            subViews: {
+                queueTracks: new app.Views.QueueTracksView({
+                    element: 'mymp-queue-tracks',
+                    events: app.Events,
+                    queueModel: new app.Models.Queue(app.Config),
                     TracksTableView: app.Views.TracksTableView
                 })
             }
@@ -107,6 +129,7 @@
                     user: User,
                     searchModel: new app.Models.Search(app.Utils.ajax),
                     playlistModel: new app.Models.Playlist(app.Utils.ajax),
+                    queueModel: new app.Models.Queue(app.Config),
                     TracksTableView: app.Views.TracksTableView
                 })
             }

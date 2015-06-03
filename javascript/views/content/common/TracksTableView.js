@@ -7,10 +7,10 @@
      * @param options
      * @constructor
      */
-    var TracksTableView = function(tracks, playlists, actions) {
-        this.tracks = tracks;
-        this.playlists = playlists;
-        this.actions = actions;
+    var TracksTableView = function(options) {
+        this.tracks = options.tracks;
+        this.playlists = options.playlists || []; // optional
+        this.actions = options.actions;
     };
 
     /**
@@ -72,12 +72,16 @@
 
         // add actions
         row += '<td>&nbsp;';
+
+        // add track to playlist or current queue action
         if (this.actions.indexOf('add-to') !== -1) {
-            row += '&nbsp;<select style="width: 200px;" class="mymp-search-results-add-to">'
-                + this.drawAddToOptions(track) +
+            row += '&nbsp;<select style="width: 200px;" class="mymp-search-results-add-to" data-track-uri="' + track.uri + '">'
+                + this.drawAddToOptions() +
             '</select>';
         }
-        if (this.actions.indexOf('remove') !== -1) {
+
+        // remove track from playlist action
+        if (this.actions.indexOf('remove-from-playlist') !== -1) {
             row += '&nbsp;<a href="#" ' +
                 'class="mymp-playlist-track-remove" ' +
                 'rel="' + track.uri + '"' +
@@ -85,12 +89,21 @@
                 '>Remove</a>';
         }
 
+        // remove track from current queue action
+        if (this.actions.indexOf('remove-from-queue') !== -1) {
+            row += '&nbsp;<a href="#" ' +
+            'class="mymp-queue-track-remove" ' +
+            'rel="' + track.uri + '"' +
+            'title="Remove track from current queue"' +
+            '>Remove</a>';
+        }
+
         row += '</td></tr>';
 
         return row;
     };
 
-    TracksTableView.prototype.drawAddToOptions = function(track) {
+    TracksTableView.prototype.drawAddToOptions = function() {
         var options = '<option val="">Add To...</option>' +
             '<option disabled>--------------------</option>' +
             '<option value="current-queue">Current Queue</option>' +
@@ -98,7 +111,7 @@
 
         for (var id in this.playlists) {
             if (this.playlists.hasOwnProperty(id)) {
-                options += '<option value="' + id + '" data-track-uri="' + track.uri + '">'
+                options += '<option value="' + id + '">'
                     + this.playlists[id].name +
                     '</option>';
             }

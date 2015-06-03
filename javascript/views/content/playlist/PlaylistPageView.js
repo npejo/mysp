@@ -14,6 +14,7 @@
 
         // injected dependencies
         this.route = options.route;
+        this.auth = options.auth;
         this.user = options.user;
         this.playlistModel = options.playlistModel;
     };
@@ -54,10 +55,13 @@
         var self = this;
         this.playlistModel.loadTracks(function(err, tracks) {
             if (err) {
-                console.log('problem while loading tracks');
-
-                // redirect the user to search page
-                return self.goTo({page: 'search'});
+                if (err.status === '401') {
+                    self.auth.logout();
+                } else {
+                    console.log('problem while loading tracks');
+                    // redirect the user to search page
+                    return self.goTo({page: 'search'});
+                }
             }
             self.renderSubviews();
         });

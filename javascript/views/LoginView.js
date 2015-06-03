@@ -29,7 +29,7 @@
             self.auth.login();
         });
     };
-    
+
     /**
      * Return the main login page template as string
      *

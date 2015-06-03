@@ -42,8 +42,13 @@
                 '<div class="col-1-3"><a href="#page=search" class="mymp-title"><h1>MY<br/>SP</h1></a></div>' +
                 '<div class="col-1-3 text-center" id="mymp-msg-box"><p>fdsgfdsgfd</p></div>' +
                 '<div class="col-1-3 text-right">' +
-                    'Welcome <strong class="mymp-logged-user-name">'
-                    + this.user.getName() + '</strong>,&nbsp; <a href="#" id="btn-logout">Logout</a>' +
+                    '<div class="row">' +
+                        'Welcome <strong class="mymp-logged-user-name">'
+                        + this.user.getName() + '</strong>,&nbsp; <a href="#" id="btn-logout">Logout</a>' +
+                    '</div>' +
+                    '<div class="row">' +
+                        '<a href="#page=queue">Playing Queue</a>' +
+                    '</div>' +
                 '</div>' +
             '</header>' +
             '<div class="row">' +
