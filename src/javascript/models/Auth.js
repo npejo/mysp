@@ -43,7 +43,7 @@
      */
     Auth.prototype.logout = function() {
         this.setId('');
-        this.setToken('');
+        this.setToken('', '');
         window.location.reload();
     };
 
@@ -55,7 +55,7 @@
      */
     Auth.prototype.setToken = function(token, expires_in) {
         localStorage.setItem(this.appPrefix + 'token', token);
-        localStorage.setItem(this.appPrefix + 'expires', (new Date()).getTime() + expires_in);
+        localStorage.setItem(this.appPrefix + 'expires', !expires_in ? '' : (new Date()).getTime() + expires_in);
     };
 
     /**

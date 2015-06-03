@@ -49,20 +49,12 @@
     /**
      * Remove track from the current playing queue
      *
-     * @param trackUri
+     * @param trackOrder
      */
-    Queue.prototype.removeTrack = function(trackUri) {
+    Queue.prototype.removeTrack = function(trackOrder) {
         var tracks = this.getTracks();
-        var updatedTracks = [];
-
-        tracks.forEach(function(track) {
-            // ignore the track that should be removed
-            if (track.uri !== trackUri) {
-                updatedTracks.push(track);
-            }
-        }, this);
-
-        this.saveQueue(updatedTracks);
+        tracks.splice(parseInt(trackOrder, 10), 1);
+        this.saveQueue(tracks);
     };
 
     /**

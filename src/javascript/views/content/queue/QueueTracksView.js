@@ -26,7 +26,6 @@
      */
     QueueTracksView.prototype.addEventListeners = function() {
         // bind remove track action
-        this.addListener('.mymp-queue-track-play', 'click', this.playTrack.bind(this));
         this.addListener('.mymp-queue-track-remove', 'click', this.removeTrackFromQueue.bind(this));
     };
 
@@ -56,28 +55,13 @@
     };
 
     /**
-     * Add track to current queue and start playing
-     */
-    QueueTracksView.prototype.playTrack = function() {
-        event.preventDefault();
-        var trackUri = event.currentTarget.rel;
-
-        this.playlistModel.removeTrack(trackUri, function(err) {
-            if (err) return console.log('track remove error!');
-
-            console.log('track ' + trackUri + ' was removed!');
-            document.getElementById('track-' + trackUri).style.display = 'none';
-        });
-    };
-
-    /**
      * Remove track from current queue
      */
     QueueTracksView.prototype.removeTrackFromQueue = function() {
         event.preventDefault();
-        var trackUri = event.currentTarget.rel;
+        var trackOrder = event.currentTarget.getAttribute('data-order');
 
-        this.queueModel.removeTrack(trackUri);
+        this.queueModel.removeTrack(trackOrder);
         this.render();
     };
 

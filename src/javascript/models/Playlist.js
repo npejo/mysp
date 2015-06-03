@@ -9,9 +9,21 @@
     var Playlist = function(ajaxService) {
         this.data = {};
         this.tracks = [];
+        this.tracksObjMap = {};
 
         // injected dependencies
         this.ajaxService = ajaxService;
+    };
+
+    /**
+     * Set empty all data properties of the playlist model
+     *
+     * @returns {string}
+     */
+    Playlist.prototype.reset = function() {
+        this.data = {};
+        this.tracks = [];
+        this.tracksObjMap = {};
     };
 
     /**
@@ -81,6 +93,16 @@
     };
 
     /**
+     * Return track object
+     *
+     * @param trackUri
+     * @returns {object}
+     */
+    Playlist.prototype.getTrackModel = function(trackUri) {
+        return this.tracksObjMap[trackUri] ? this.tracksObjMap[trackUri] : null;
+    };
+
+    /**
      * Return the url of the image related to the playlist
      * If there is more than 1 image, return the medium sized image by default
      *
@@ -119,8 +141,9 @@
             function(response) { // success
                 console.log('tracks loaded');
                 // update the playlist `tracks` property with loaded data
-                self.tracks = response.items.map(function(obj) {
-                    return obj.track;
+                response.items.forEach(function(obj) {
+                    self.tracks.push(obj.track);
+                    self.tracksObjMap[obj.track.uri] = obj.track;
                 });
 
                 callback(null, self.tracks);
@@ -234,6 +257,18 @@
                 callback(err);
             }
         );
+    };
+
+    /**
+     * Map tracks list as object with the trackUri as key
+     * The enable easy lookup for specific track
+     *
+     * @param tracks
+     */
+    Playlist.prototype.appendToObjMap = function(tracks) {
+        tracks.forEach(function(t) {
+            this.tracksObjMap[t.uri] = t;
+        }, this);
     };
 
     app.Models.Playlist = Playlist;

@@ -20,8 +20,8 @@
         var tracksTbl = this.startTableHeader();
 
         // draw row for each track
-        this.tracks.forEach(function(track) {
-            tracksTbl += this.drawTrackRow(track);
+        this.tracks.forEach(function(track, index) {
+            tracksTbl += this.drawTrackRow(track, index);
         }, this);
 
         tracksTbl += this.endTable();
@@ -63,7 +63,7 @@
      * @param track
      * @returns {string}
      */
-    TracksTableView.prototype.drawTrackRow = function(track) {
+    TracksTableView.prototype.drawTrackRow = function(track, index) {
         var row = '<tr id="track-' + track.uri + '">' +
             '<td>' + track.name + '</td>' +
             '<td>' + this.showArtists(track) + '</td>' +
@@ -80,11 +80,20 @@
             '</select>';
         }
 
+        // add track to current queue action
+        if (this.actions.indexOf('add-to-queue') !== -1) {
+            row += '&nbsp;<a href="#" ' +
+            'class="mymp-track-add-to-queue" ' +
+            'rel="' + track.uri + '"' +
+            'title="Add To Current Queue"' +
+            '>Add To Queue</a>';
+        }
+
         // remove track from playlist action
         if (this.actions.indexOf('remove-from-playlist') !== -1) {
             row += '&nbsp;<a href="#" ' +
                 'class="mymp-playlist-track-remove" ' +
-                'rel="' + track.uri + '"' +
+                'rel="' + track.uri + '" data-order="' + index + '"' +
                 'title="Remove track from playlist"' +
                 '>Remove</a>';
         }
@@ -93,7 +102,7 @@
         if (this.actions.indexOf('remove-from-queue') !== -1) {
             row += '&nbsp;<a href="#" ' +
             'class="mymp-queue-track-remove" ' +
-            'rel="' + track.uri + '"' +
+            'rel="' + track.uri + '" data-order="' + index + '"' +
             'title="Remove track from current queue"' +
             '>Remove</a>';
         }

@@ -3,6 +3,7 @@
 
     // create instance off application level objects
     var Auth = new app.Models.Auth(app.Config);
+    var Queue = new app.Models.Queue(app.Config);
     var User = null;
     app.Events = new app.Models.Events();
 
@@ -72,8 +73,8 @@
                     auth: Auth,
                     user: User,
                     subViews: {
-                        menu: app.ViewsConfig.menu(route, User, Auth),
-                        content: app.ViewsConfig.content(route, User, Auth)
+                        menu: app.ViewsConfig.menu(route, User, Auth, Queue),
+                        content: app.ViewsConfig.content(route, User, Auth, Queue)
                     }
                 });
                 appView.render();

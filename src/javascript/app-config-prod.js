@@ -3,7 +3,7 @@
      * PRODUCTION configuration
      */
     app.Config = {
-        host: 'http://localhost:8000',
+        host: 'http://localhost:8484',
         appPrefix: 'mymp-',
         authApiUrl: 'https://accounts.spotify.com/authorize',
         apiBaseURL: 'https://api.spotify.com/v1',

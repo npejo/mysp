@@ -11,9 +11,11 @@
     <div id="mymp-container" class="clearfix"></div>
 </div>
 
+<!-- build:js:dist javascript/app-config.js -->
 <script src="javascript/app-initialize.js"></script>
 <script src="javascript/app-config-dev.js"></script>
-
+<!-- /build -->
+<!-- build:js:dist javascript/app-main.min.js -->
 <script src="javascript/utils/querystring.js"></script>
 <script src="javascript/utils/ajax.js"></script>
 
@@ -40,8 +42,9 @@
 <script src="javascript/views/content/playlist/PlaylistTracksView.js"></script>
 <script src="javascript/views/content/queue/QueuePageView.js"></script>
 <script src="javascript/views/content/queue/QueueTracksView.js"></script>
-<script src="javascript/app-views-config.js"></script>
 
+<script src="javascript/app-views-config.js"></script>
 <script src="javascript/app-run.js"></script>
+<!-- /build -->
 </body>
 </html>

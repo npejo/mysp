@@ -45,6 +45,7 @@
 
         this.renderSelf();
 
+        this.playlistModel.reset();
         this.playlistModel.setProfile(playlist);
 
         // inject the loaded playlist model into page subViews
@@ -55,7 +56,7 @@
         var self = this;
         this.playlistModel.loadTracks(function(err, tracks) {
             if (err) {
-                if (err.status === '401') {
+                if (err.message.indexOf('401') !== -1) {
                     self.auth.logout();
                 } else {
                     console.log('problem while loading tracks');

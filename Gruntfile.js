@@ -5,24 +5,42 @@ module.exports = function (grunt) {
     var config = {
         tmp: '.tmp',
         src: 'src',
-        scripts: 'javascript',
+        scripts: 'src/javascript',
+        styles: 'src/stylesheet',
+        images: 'src/images',
         dist: 'dist',
-        distCss: 'dist/stylesheets',
-        distJs: 'dist/javascript',
-        bower: 'src/bower_components'
-
+        distJs: 'dist/javascript'
     };
 
     // Project configuration.
     grunt.initConfig({
         cfg: config,
-        pkg: grunt.file.readJSON('package.json'),
+        clean: {
+            dist: {
+                files: [{
+                    dot: true,
+                    src: [
+                        '.tmp',
+                        '<%= cfg.dist %>/*',
+                        '!<%= cfg.dist %>/.git*'
+                    ]
+                }]
+            }
+        },
         copy: {
-            styles: {
-                expand: true,
-                cwd: '<%= cfg.tmp %>',
-                dest: '<%= cfg.distCss %>',
-                src: ['*.css', '*.map']
+            main: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: '<%= cfg.src %>',
+                        dest: '<%= cfg.dist %>',
+                        src: [
+                            'images/**/*',
+                            'stylesheet/**/*',
+                            'auth-callback.html'
+                        ]
+                    }
+                ]
             }
         },
         watch: {
@@ -36,17 +54,23 @@ module.exports = function (grunt) {
         },
         concat: {
             dist: {
-                src: [
-                    '<%= cfg.bower %>/jquery/dist/jquery.min.js',
-                    '<%= cfg.bower %>/underscore/underscore-min.js',
-                    '<%= cfg.bower %>/backbone/backbone-min.js',
-                    '<%= cfg.scripts %>/app-config.js',
-                    '<%= cfg.scripts %>/app-initialize.js',
-                    '<%= cfg.scripts %>/models/**/*.js',
-                    '<%= cfg.scripts %>/collections/**/*.js',
-                    '<%= cfg.scripts %>/views/**/*.js'
-                ],
-                dest: '<%= cfg.tmp %>/main.js'
+                files: {
+                    '<%= cfg.tmp %>/app-main.js': [
+                        '<%= cfg.scripts %>/utils/**/*.js',
+                        '<%= cfg.scripts %>/models/**/*.js',
+                        '<%= cfg.scripts %>/views/CoreView.js',
+                        '<%= cfg.scripts %>/views/AppView.js',
+                        '<%= cfg.scripts %>/views/LoginView.js',
+                        '<%= cfg.scripts %>/views/menu/**/*.js',
+                        '<%= cfg.scripts %>/views/content/**/*.js',
+                        '<%= cfg.scripts %>/app-views-config.js',
+                        '<%= cfg.scripts %>/app-run.js'
+                    ],
+                    '<%= cfg.distJs %>/app-config.js': [
+                        '<%= cfg.scripts %>/app-initialize.js',
+                        '<%= cfg.scripts %>/app-config-prod.js'
+                    ]
+                }
             }
         },
         uglify: {
@@ -55,7 +79,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 files: {
-                    '<%= cfg.distJs %>/main.min.js': '<%= cfg.tmp %>/main.js'
+                    '<%= cfg.distJs %>/app-main.min.js': '<%= cfg.tmp %>/app-main.js'
                 }
             }
         },
@@ -67,17 +91,26 @@ module.exports = function (grunt) {
             }
         },
         connect: {
-            server: {
+            dev: {
                 options: {
                     port: 8888,
                     open: true,
-                    keepalive: 1
+                    keepalive: 1,
+                    base: '<%= cfg.src %>'
+                }
+            },
+            prod: {
+                options: {
+                    port: 8484,
+                    open: true,
+                    keepalive: 1,
+                    base: '<%= cfg.dist %>'
                 }
             }
         },
         concurrent: {
-            target: {
-                tasks: ['connect:server', 'watch'],
+            dev: {
+                tasks: ['connect:dev', 'watch'],
                 options: {
                     logConcurrentOutput: true
                 }
@@ -87,6 +120,7 @@ module.exports = function (grunt) {
 
     // Load the plugins
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -95,6 +129,8 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-concurrent');
 
     // Tasks
-    grunt.registerTask('default', ['concurrent:target']);
+    grunt.registerTask('server:dev', ['concurrent:dev']);
+    grunt.registerTask('server:prod', ['connect:prod']);
+    grunt.registerTask('build', ['clean', 'copy', 'concat:dist', 'uglify:dist', 'processhtml:dist']);
 
 };

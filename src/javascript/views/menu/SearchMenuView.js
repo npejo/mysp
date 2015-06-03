@@ -38,6 +38,7 @@
 
         // bind click to make new search request from main menu
         this.addListener('#mymp-menu-search-btn', 'click', this.doSearch.bind(this));
+        this.addListener('#mymp-menu-search-input', 'keyup', this.doSearchOnEnter.bind(this));
     };
 
     /**
@@ -72,6 +73,17 @@
         var query = document.getElementById('mymp-menu-search-input').value;
         if (query !== '') {
             this.goTo({page: 'search', q: query});
+        }
+    };
+
+    /**
+     * Handler for the make new search event on enter while focused in the search input
+     *
+     * @private
+     */
+    SearchMenuView.prototype.doSearchOnEnter = function() {
+        if (window.event.keyCode === 13) {
+            this.doSearch();
         }
     };
 

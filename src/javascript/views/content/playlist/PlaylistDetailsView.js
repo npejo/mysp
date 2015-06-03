@@ -18,6 +18,7 @@
         // injected dependencies
         this.appEvents = options.events;
         this.user = options.user;
+        this.queueModel = options.queueModel;
         this.playlistModel = null;
     };
 
@@ -36,6 +37,9 @@
 
         // bind click to save playlist details data
         this.addListener('.playlist-details-save', 'click', this.savePlaylistDetails.bind(this));
+
+        // bind click to add playlist to current queue
+        this.addListener('.playlist-add-to-queue', 'click', this.addPlaylistToQueue.bind(this));
     };
 
     /**
@@ -57,6 +61,8 @@
                 + (this.viewState === 'edit' ? this.showEditState() : this.showViewState()) +
             '</div>';
 
+        // add Add to queue button
+        template += '<button class="playlist-add-to-queue">Add To Queue</button>';
         return template;
     };
 
@@ -146,6 +152,13 @@
                 self.render();
             }
         );
+    };
+
+    /**
+     * Add the complete playlist to current playing queue
+     */
+    PlaylistDetailsView.prototype.addPlaylistToQueue = function() {
+        this.queueModel.addTracks(this.playlistModel.getTracks());
     };
 
     app.Views.PlaylistDetailsView = PlaylistDetailsView;

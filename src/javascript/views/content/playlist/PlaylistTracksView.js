@@ -15,6 +15,7 @@
         // injected dependencies
         this.user = options.user;
         this.TracksTableView = options.TracksTableView;
+        this.queueModel = options.queueModel;
         this.playlistModel = options.playlistModel || null; // optional in constructor
     };
 
@@ -27,6 +28,7 @@
     PlaylistTracksView.prototype.addEventListeners = function() {
         // bind remove track action
         this.addListener('.mymp-playlist-track-remove', 'click', this.removeTrackFromPlaylist.bind(this));
+        this.addListener('.mymp-track-add-to-queue', 'click', this.addTrackToQueue.bind(this));
     };
 
     /**
@@ -43,7 +45,7 @@
                 {
                     tracks: tracks,
                     playlists: userPlaylists,
-                    actions: ['remove-from-playlist']
+                    actions: ['add-to-queue', 'remove-from-playlist']
                 }
             )).render();
 
@@ -74,6 +76,17 @@
             console.log('track ' + trackUri + ' was removed!');
             document.getElementById('track-' + trackUri).style.display = 'none';
         });
+    };
+
+    /**
+     * Add track to playing queue
+     */
+    PlaylistTracksView.prototype.addTrackToQueue = function() {
+        event.preventDefault();
+        var trackUri = event.currentTarget.rel;
+
+        var trackModel = this.playlistModel.getTrackModel(trackUri);
+        this.queueModel.addTracks(trackModel);
     };
 
     app.Views.PlaylistTracksView = PlaylistTracksView;
