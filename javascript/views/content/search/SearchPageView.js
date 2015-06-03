@@ -34,8 +34,8 @@
      * @returns {string}
      */
     SearchPageView.prototype.getTemplate = function() {
-        return '<div id="mymp-search-form">' + this.route.q + '</div>' +
-            '<div id="mymp-search-results"></div>';
+        return '<div id="mymp-search-form" class="content-section text-center">' + this.route.q + '</div>' +
+            '<div id="mymp-search-results" class="content-section text-center"></div>';
     };
     
     app.Views.SearchPageView = SearchPageView;

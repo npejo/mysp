@@ -74,7 +74,7 @@
      */
     PlaylistsMenuView.prototype.getTemplate = function() {
         return '<h2 class="menu-section-header">Playlists</h2>' +
-            '<a id="menu-add-playlist-link" href="#">+ Add new playlist</a>' +
+            '<a id="menu-add-playlist-link" class="btn" href="#">+ Add new playlist</a>' +
             '<div class="menu-add-playlist-form hidden">' +
                 '<div class="form-row">' +
                     '<input type="text" class="new-playlist-name" name="new-playlist-name" value=""/>' +
@@ -103,8 +103,10 @@
         var a = document.createElement('a');
         a.href = '#page=playlist&id=' + playlist.id;
         a.text = playlist.name;
+        a.title = playlist.name;
 
         var li = document.createElement('li');
+        li.className = 'truncated';
         li.appendChild(a);
 
         return li.outerHTML;

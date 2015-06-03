@@ -44,7 +44,19 @@
      * @returns {string}
      */
     PlaylistDetailsView.prototype.getTemplate = function() {
-        var template = this.viewState === 'edit' ? this.showEditState() : this.showViewState();
+        var template = '';
+        var image = this.playlistModel.getImage('medium') || '';
+        if (image) {
+            template += '<div class="col-1-3 text-center">' +
+                '<img class="playlist-image" src="' + image + '"/>' +
+            '</div>';
+        }
+
+        var secondCol = image ? 'col-2-3' : 'col-3-3';
+        template += '<div class="' + secondCol + '">'
+                + (this.viewState === 'edit' ? this.showEditState() : this.showViewState()) +
+            '</div>';
+
         return template;
     };
 
@@ -64,17 +76,12 @@
      * @returns {string}
      */
     PlaylistDetailsView.prototype.showViewState = function() {
-        var tmp = '<h1 class="playlist-name">' + this.playlistModel.getName() + '</h1>';
+        var tmp = '<h2 class="playlist-name">' + this.playlistModel.getName() + '</h2>';
 
         var isPublic = this.playlistModel.isPublic() ? 'public' : 'private';
         tmp += '<span class="playlist-type">' + isPublic + '</span>';
 
-        var image = this.playlistModel.getImage('small') || '';
-        if (image) {
-            tmp += '<img class="playlist-image" src="' + image + '"/>';
-        }
-
-        tmp += '<button class="playlist-details-edit">Edit</button>';
+        tmp += '<button class="playlist-details-edit pl-btn">Edit</button>';
 
         return tmp;
     };
@@ -86,21 +93,16 @@
      * @returns {string}
      */
     PlaylistDetailsView.prototype.showEditState = function() {
-        var tmp = '<input type="text" class="playlist-details-name" value="' + this.playlistModel.getName() + '"/>';
+        var tmp = '<input type="text" class="playlist-details-name pl-control" value="' + this.playlistModel.getName() + '"/>';
 
         var isPublic = this.playlistModel.isPublic();
-        tmp += '<select class="playlist-details-type">' +
+        tmp += '<select class="playlist-details-type pl-control">' +
             '<option value="private" ' + (!isPublic ? 'selected': '') +'>Private</option>' +
             '<option value="public" ' + (isPublic ? 'selected': '') +'>Public</option>' +
         '</select>';
 
-        var image = this.playlistModel.getImage('small') || '';
-        if (image) {
-            tmp += '<img class="playlist-image" src="' + image + '"/>';
-        }
-
-        tmp += '<button class="playlist-details-save">Save</button>&nbsp;' +
-            '<button class="playlist-details-cancel">Cancel</button>';
+        tmp += '<button class="playlist-details-save pl-btn">Save</button>&nbsp;' +
+            '<button class="playlist-details-cancel pl-btn">Cancel</button>';
 
         return tmp;
     };

@@ -26,11 +26,12 @@
     };
 
     /**
-     * Return the `displayName` (full name) property from user profile
+     * Return the `display_name` (full name) property from user profile or the username (`id`)
+     *
      * @returns {string}
      */
     User.prototype.getName = function() {
-        return this.profile.displayName;
+        return this.profile.display_name || this.profile.id;
     };
 
     /**

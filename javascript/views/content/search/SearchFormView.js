@@ -34,8 +34,11 @@
      */
     SearchFormView.prototype.getTemplate = function() {
         var query = this.route.q || '';
-        return '<input id="mymp-search-form-input" type="text" value="' + query + '" />' +
-            '<button id="mymp-search-form-btn">Search</button>';
+        return '<input id="mymp-search-form-input" ' +
+                'class="mymp-search-control" ' +
+                'type="text" placeholder="Search for songs" ' +
+                'value="' + query + '" />' +
+            '<button id="mymp-search-form-btn" class="mymp-search-control">Search</button>';
     };
 
     /**

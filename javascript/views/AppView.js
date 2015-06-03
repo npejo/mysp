@@ -15,6 +15,7 @@
 
         // injected dependencies
         this.auth = options.auth;
+        this.user = options.user;
     };
 
     // chain the prototype of the parent object
@@ -37,9 +38,19 @@
      * @returns {string}
      */
     AppView.prototype.getTemplate = function() {
-        return '<div id="mymp-menu">Here should be the menu</div>' +
-            '<div id="mymp-content">this is content <h2>h2 123</h2></div>' +
-            '<button id="btn-logout">Logout</button>';
+        return '<header class="row">' +
+                '<div class="col-1-3"><a href="#page=search" class="mymp-title"><h1>MY<br/>SP</h1></a></div>' +
+                '<div class="col-1-3 text-center" id="mymp-msg-box"><p>fdsgfdsgfd</p></div>' +
+                '<div class="col-1-3 text-right">' +
+                    'Welcome <strong class="mymp-logged-user-name">'
+                    + this.user.getName() + '</strong>,&nbsp; <a href="#" id="btn-logout">Logout</a>' +
+                '</div>' +
+            '</header>' +
+            '<div class="row">' +
+                '<div id="mymp-menu" class="col-1-3">Here should be the menu</div>' +
+                '<div id="mymp-content" class="col-2-3">this is content <h2>h2 123</h2></div>' +
+                '' +
+            '</div>';
     };
     
     app.Views.AppView = AppView;

@@ -56,9 +56,9 @@
      * @returns {string}
      */
     SearchMenuView.prototype.getTemplate = function() {
-        var hide = this.hideSearch ? 'class="hidden"' : '';
-        return '<div ' + hide + '>' +
-            '<input type="text" id="mymp-menu-search-input" value=""/>' +
+        var hide = this.hideSearch ? 'hidden' : '';
+        return '<div class="menu-search-form ' + hide + '">' +
+            '<input type="text" id="mymp-menu-search-input" value="" placeholder="Search for songs"/>' +
             '<button id="mymp-menu-search-btn">Search</button>' +
             '</div>';
     };

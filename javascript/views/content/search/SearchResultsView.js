@@ -38,6 +38,11 @@
     SearchResultsView.prototype.render = function() {
         this.renderSelf(true);
 
+        // display logo by default
+        this.element.innerHTML = '<p>Hi, you are in <b>MY Spotify Player</b></p>' +
+            '<p>Your playlist from Spotify are displayed in the left column.</p>' +
+            '<p>You can manage the tracks or create new playlists from here.</p>';
+
         // load search results if there is `query` in current route
         if (this.route.q && this.route.q !== '') {
 
@@ -77,8 +82,9 @@
             ['add-to']
         )).render();
 
+        var loadNextBtn = '';
         if (this.searchModel.hasNextResults()) {
-            var loadNextBtn = '<button class="mymp-next-search-results">Load more</button>';
+            loadNextBtn = '<div class="text-center"><button class="mymp-search-results-next btn">Load more</button></div>';
         }
         return resultsTable + loadNextBtn;
     };

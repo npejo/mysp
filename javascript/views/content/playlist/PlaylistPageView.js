@@ -69,7 +69,7 @@
      * @returns {string}
      */
     PlaylistPageView.prototype.getTemplate = function() {
-        return '<div id="mymp-playlist-details"></div>' +
+        return '<div id="mymp-playlist-details" class="row"></div>' +
             '<div id="mymp-playlist-tracks"></div>';
     };
 

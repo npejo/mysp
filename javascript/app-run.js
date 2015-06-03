@@ -70,6 +70,7 @@
                 var appView = new app.Views.AppView({
                     element: 'mymp-container',
                     auth: Auth,
+                    user: User,
                     subViews: {
                         menu: app.ViewsConfig.menu(route, User),
                         content: app.ViewsConfig.content(route, User)

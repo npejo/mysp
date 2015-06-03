@@ -35,7 +35,7 @@
      * @returns {string}
      */
     TracksTableView.prototype.startTableHeader = function() {
-        return '<table class="mymp-tracks-table">' +
+        return '<table class="mymp-tracks-table" rules="rows" cellspacing="0" cellpadding="3">' +
             '<thead>' +
                 '<tr>' +
                     '<th>Song</th>' +
@@ -68,7 +68,7 @@
             '<td>' + track.name + '</td>' +
             '<td>' + this.showArtists(track) + '</td>' +
             '<td>' + this.showAlbum(track) + '</td>' +
-            '<td>' + track.duration_ms + '</td>';
+            '<td>' + this.showLength(track) + '</td>';
 
         // add actions
         row += '<td>&nbsp;';
@@ -78,7 +78,11 @@
             '</select>';
         }
         if (this.actions.indexOf('remove') !== -1) {
-            row += '&nbsp;<a href="#" class="mymp-playlist-track-remove" rel="' + track.uri + '">Remove</a>';
+            row += '&nbsp;<a href="#" ' +
+                'class="mymp-playlist-track-remove" ' +
+                'rel="' + track.uri + '"' +
+                'title="Remove track from playlist"' +
+                '>Remove</a>';
         }
 
         row += '</td></tr>';
@@ -135,6 +139,28 @@
 
 
         return album;
+    };
+
+    /**
+     * Show track length in mm:ss format
+     *
+     * @private
+     * @param trackModel
+     * @returns {string}
+     */
+    TracksTableView.prototype.showLength = function(trackModel) {
+        var length = '';
+
+        var time = new Date(trackModel.duration_ms);
+        var mins = time.getMinutes();
+        var secs = time.getSeconds();
+
+        // pad seconds with 0
+        secs = secs < 10 ? '0' + secs : secs;
+
+        length += mins + ':' + secs + '</a>';
+
+        return length;
     };
 
     app.Views.TracksTableView = TracksTableView;
