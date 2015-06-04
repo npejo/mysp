@@ -115,6 +115,14 @@ module.exports = function (grunt) {
                     logConcurrentOutput: true
                 }
             }
+        },
+        mocha: {
+            options: {
+                run: true
+            },
+            all: {
+                src: ['tests/testsrunner.html']
+            }
         }
     });
 
@@ -127,10 +135,12 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-processhtml');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-concurrent');
+    grunt.loadNpmTasks('grunt-mocha');
 
     // Tasks
     grunt.registerTask('server:dev', ['concurrent:dev']);
     grunt.registerTask('server:prod', ['connect:prod']);
     grunt.registerTask('build', ['clean', 'copy', 'concat:dist', 'uglify:dist', 'processhtml:dist']);
+    grunt.registerTask('test', ['mocha']);
 
 };
