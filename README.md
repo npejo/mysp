@@ -18,7 +18,7 @@ Install the development dependencies listed in `package.json`
 npm install
 ```
 There are two configuration files for the application, one for `development` and one for `production` environment.
-They are set in [app-config.dev.js](mysp/src/javascript/app-config-dev.js) and [app-config-prod.js](mysp/src/javascript/app-config-prod.js) respectively.
+They are set in [app-config.dev.js](src/javascript/app-config-dev.js) and [app-config-prod.js](src/javascript/app-config-prod.js) respectively.
 
 To run the application in `dev` mode run:
 ```shell
