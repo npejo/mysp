@@ -101,7 +101,6 @@
         };
 
         if (params.data) {
-            console.log(params.data);
             xhr.send(params.data);
         } else {
             xhr.send();

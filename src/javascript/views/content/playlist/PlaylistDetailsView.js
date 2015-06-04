@@ -144,12 +144,22 @@
         var self = this;
         this.playlistModel.updatePlaylistDetails(updateData,
             function(err) {
-                if (err) return console.log('problem while updating playlist details');
+                if (err) {
+                    return self.appEvents.publish('logMsg', {
+                        type: 'error',
+                        msg: 'Error while updating playlist details!'
+                    });
+                }
 
                 self.user.setPlaylist(self.playlistModel.getData());
                 self.appEvents.publish('playlistDetailsUpdate', updateData);
                 self.viewState = 'view';
                 self.render();
+
+                self.appEvents.publish('logMsg', {
+                    type: 'info',
+                    msg: 'Playlist details updated'
+                });
             }
         );
     };
@@ -159,6 +169,11 @@
      */
     PlaylistDetailsView.prototype.addPlaylistToQueue = function() {
         this.queueModel.addTracks(this.playlistModel.getTracks());
+
+        this.appEvents.publish('logMsg', {
+            type: 'info',
+            msg: 'Tracks from ' + this.playlistModel.getName() + ' are added to playing queue'
+        });
     };
 
     app.Views.PlaylistDetailsView = PlaylistDetailsView;

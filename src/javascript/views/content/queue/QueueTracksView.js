@@ -63,6 +63,10 @@
 
         this.queueModel.removeTrack(trackOrder);
         this.render();
+        this.appEvents.publish('logMsg', {
+            type: 'info',
+            msg: 'Track removed from playing queue'
+        });
     };
 
     app.Views.QueueTracksView = QueueTracksView;

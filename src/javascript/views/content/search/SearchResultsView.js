@@ -53,7 +53,12 @@
             // load the search results for the specified query
             var self = this;
             this.searchModel.loadResults(this.route.q, function(err, tracks) {
-                if (err) return console.log('error on search request');
+                if (err) {
+                    return this.appEvents.publish('logMsg', {
+                        type: 'error',
+                        msg: 'Error while loading search results!'
+                    });
+                }
 
                 if (tracks && tracks.length > 0) {
                     // display the results table
@@ -98,7 +103,12 @@
     SearchResultsView.prototype.loadNextResults = function() {
         var self = this;
         this.searchModel.loadNextResults(function(err) {
-            if (err) return console.log('error on loading more search results');
+            if (err) {
+                return self.appEvents.publish('logMsg', {
+                    type: 'error',
+                    msg: 'Error while loading more search results!'
+                });
+            }
 
             self.render();
         });
@@ -118,16 +128,18 @@
         }
 
         var trackUri = targetElement.getAttribute('data-track-uri');
+        var tModel = this.searchModel.getTrackModel(trackUri);
 
         if (currentValue === 'current-queue') {
-            var tModel = this.searchModel.getTrackModel(trackUri);
             if (tModel) {
                 this.queueModel.addTracks(tModel);
                 // reset current selection of target element
                 targetElement.selectedIndex = 0;
-                console.log('track added to current queue');
-            } else {
-                console.log('The track data is not found');
+
+                this.appEvents.publish('logMsg', {
+                    type: 'info',
+                    msg: tModel.name + ' added to playing queue'
+                });
             }
         } else {
             var playlistProfile = this.user.getPlaylist(currentValue);
@@ -137,8 +149,16 @@
                 // reset current selection of target element
                 targetElement.selectedIndex = 0;
 
-                if (err) return console.log('error while adding track to list');
-                console.log('The track was added to ' + self.playlistModel.getName());
+                if (err) {
+                    return self.appEvents.publish('logMsg', {
+                        type: 'error',
+                        msg: 'Error while adding track to playlist!'
+                    });
+                }
+                self.appEvents.publish('logMsg', {
+                    type: 'info',
+                    msg: tModel.name + ', is added to ' + self.playlistModel.getName()
+                });
             });
         }
 

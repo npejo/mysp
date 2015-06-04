@@ -14,6 +14,7 @@
 
         // injected dependencies
         this.user = options.user;
+        this.appEvents = options.events;
         this.TracksTableView = options.TracksTableView;
         this.queueModel = options.queueModel;
         this.playlistModel = options.playlistModel || null; // optional in constructor
@@ -70,10 +71,19 @@
         event.preventDefault();
         var trackUri = event.currentTarget.rel;
 
+        var self = this;
         this.playlistModel.removeTrack(trackUri, function(err) {
-            if (err) return console.log('track remove error!');
+            if (err) {
+                return self.appEvents.publish('logMsg', {
+                    type: 'error',
+                    msg: 'Error while trying to remove track from playlist!'
+                });
+            }
 
-            console.log('track ' + trackUri + ' was removed!');
+            self.appEvents.publish('logMsg', {
+                type: 'info',
+                msg: 'Track removed from playlist'
+            });
             document.getElementById('track-' + trackUri).style.display = 'none';
         });
     };
@@ -87,6 +97,11 @@
 
         var trackModel = this.playlistModel.getTrackModel(trackUri);
         this.queueModel.addTracks(trackModel);
+
+        this.appEvents.publish('logMsg', {
+            type: 'info',
+            msg: 'Track added to playing queue'
+        });
     };
 
     app.Views.PlaylistTracksView = PlaylistTracksView;

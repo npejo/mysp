@@ -22,7 +22,6 @@
          * @param callback
          */
         subscribe: function(eventName, callback) {
-            console.log(this.subscriptions);
             if (!this.subscriptions[eventName]) {
                 this.subscriptions[eventName] = [];
             }

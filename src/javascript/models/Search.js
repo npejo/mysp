@@ -75,7 +75,6 @@
                     callback(null, self.tracks);
                 }
             }, function(err) { // error
-                console.log(err);
                 callback(err);
             }
         );

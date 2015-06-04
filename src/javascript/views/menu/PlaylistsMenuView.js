@@ -146,7 +146,10 @@
         // read the playlist name
         var plName = this.element.getElementsByClassName('new-playlist-name')[0].value;
         if (plName === '') {
-            return console.log('display err msg, empty pl name');
+            return this.appEvents.publish('logMsg', {
+                type: 'error',
+                msg: 'Please specify the name of the playlist'
+            });
         }
 
         // read the playlist type
@@ -159,14 +162,24 @@
             this.user.getId(),
             {name: plName, 'public': isPublic},
             function(err, playlist) {
-                if (err) return console.log('display msg error on creating new playlist!');
+                if (err) {
+                    // display error message
+                    return this.appEvents.publish('logMsg', {
+                        type: 'error',
+                        msg: 'Error while saving the new the playlist!'
+                    });
+                }
 
-                // on successful response, update the user playlists and
+                // on success, update the user playlists and
                 // re-render the playlist menu section
                 self.user.setPlaylist(playlist);
                 self.render();
 
-                console.log('new playlist created');
+                // display success message
+                self.appEvents.publish('logMsg', {
+                    type: 'info',
+                    msg: 'New playlist: ' + plName + ' is created'
+                });
             }
         );
     };

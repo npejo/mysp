@@ -40,7 +40,7 @@
     AppView.prototype.getTemplate = function() {
         return '<header class="row">' +
                 '<div class="col-1-3"><a href="#page=search" class="mysp-title"><h1>MY<br/>SP</h1></a></div>' +
-                '<div class="col-1-3 text-center" id="mysp-msg-box"><p>fdsgfdsgfd</p></div>' +
+                '<div class="col-1-3 text-center" id="mysp-info-box"></div>' +
                 '<div class="col-1-3 text-right">' +
                     '<div class="row">' +
                         'Welcome <strong class="mysp-logged-user-name">'

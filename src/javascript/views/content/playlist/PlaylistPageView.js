@@ -28,8 +28,6 @@
     PlaylistPageView.prototype.render = function() {
         // check if the playlist id exists in the route object
         if (!this.route.id) {
-            console.log('missing playlist id');
-
             // redirect the user to search page
             return this.goTo({page: 'search'});
         }
@@ -37,8 +35,6 @@
         // check if requested playlist exists in user model
         var playlist = this.user.getPlaylist(this.route.id);
         if (!playlist) {
-            console.log('requested playlist doesn\'t exist');
-
             // redirect the user to search page
             return this.goTo({page: 'search'});
         }
@@ -59,7 +55,6 @@
                 if (err.message.indexOf('401') !== -1) {
                     self.auth.logout();
                 } else {
-                    console.log('problem while loading tracks');
                     // redirect the user to search page
                     return self.goTo({page: 'search'});
                 }

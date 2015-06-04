@@ -62,7 +62,6 @@
             // load user's playlists
             usr.loadPlaylists(function(err) {
                 if (err) {
-                    console.log(err);
                     console.log('problem while loading playlists');
                     return;
                 }
@@ -74,7 +73,11 @@
                     user: User,
                     subViews: {
                         menu: app.ViewsConfig.menu(route, User, Auth, Queue),
-                        content: app.ViewsConfig.content(route, User, Auth, Queue)
+                        content: app.ViewsConfig.content(route, User, Auth, Queue),
+                        logger: new app.Views.LoggerView({
+                            element: 'mysp-info-box',
+                            events: app.Events
+                        })
                     }
                 });
                 appView.render();

@@ -139,7 +139,6 @@
         var self = this;
         this.ajaxService.get({url: self.data.tracks.href},
             function(response) { // success
-                console.log('tracks loaded');
                 // update the playlist `tracks` property with loaded data
                 response.items.forEach(function(obj) {
                     self.tracks.push(obj.track);
@@ -149,7 +148,6 @@
                 callback(null, self.tracks);
 
             }, function(err) { // error
-                console.log(err);
                 callback(err);
             }
         );
@@ -166,7 +164,6 @@
                 data: data
             },
             function() { // success
-                console.log('playlists updated');
                 // update local playlist properties with updated values
                 self.data.name = data.name || self.data.name;
                 self.data.public = data.public || self.data.public;
@@ -174,7 +171,6 @@
                 callback();
 
             }, function(err) { // error
-                console.log(err.message);
                 callback(err);
             }
         );
@@ -191,13 +187,11 @@
                 data: data
             },
             function(response) { // success
-                console.log('playlists created');
                 self.data = response;
 
                 callback(null, response);
 
             }, function(err) { // error
-                console.log(err.message);
                 callback(err, null);
             }
         );
@@ -208,7 +202,6 @@
      * `uris` parameter should be array of one or more track `uri`
      */
     Playlist.prototype.addTracks = function(uris, callback) {
-        console.log(this);
         var self = this;
         this.ajaxService.post(
             {
@@ -218,14 +211,12 @@
                 }
             },
             function(response) { // success
-                console.log('tracks added');
                 // update the local playlist snapshot_id after response is received
                 self.data.snapshot_id = response.snapshot_id;
 
                 callback();
 
             }, function(err) { // error
-                console.log(err.message);
                 callback(err);
             }
         );
@@ -246,14 +237,12 @@
                 }
             },
             function(response) { // success
-                console.log('track removed');
                 // update the local playlist snapshot_id after response is received
                 self.data.snapshot_id = response.snapshot_id;
 
                 callback();
 
             }, function(err) { // error
-                console.log(err.message);
                 callback(err);
             }
         );

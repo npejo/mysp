@@ -77,14 +77,11 @@
 
         this.ajaxService.get({url: '/me'},
             function(data) { // success
-                console.log('user loaded');
-
                 // update the `profile` property with received data
                 self.profile = data;
                 callback(null, self);
 
             }, function(err) { // error
-                console.log(err);
                 callback(err, null);
             }
         );
@@ -108,8 +105,6 @@
                 '?offset=' + offset + '&limit=' + limit
             },
             function(response) { // success
-                console.log('playlists loaded');
-
                 // update the `playlists` property with received data
                 self.playlists = response;
 
@@ -123,7 +118,6 @@
                 callback();
 
             }, function(err) { // error
-                console.log(err.message);
                 callback(err);
             }
         );
