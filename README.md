@@ -18,7 +18,7 @@ For the default `development` web server configuration, the redirect uri should 
 `http://localhost:8888/auth-callback.html`
 
 For the default `production` web server configuration, the redirect uri should be:
-`http://localhost:8888/auth-callback.html`
+`http://localhost:8484/auth-callback.html`
 
 ### Run the application
 
