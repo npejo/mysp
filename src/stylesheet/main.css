@@ -135,6 +135,10 @@ h1, h2 {
     margin-bottom: 20px;
 }
 
+.mysp-header {
+    height: 120px;
+}
+
 .menu-section-header {
     margin-bottom: 10px;
 }
