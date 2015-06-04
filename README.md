@@ -40,7 +40,7 @@ To run the application in `dev` mode run:
 ```shell
 grunt server:dev
 ```
-this will start web server listening on the port set as `dev-port` in the config section in [Gruntfile.js](Gruntfile.js)
+this will start web server listening on the port set in `connect:dev` section in [Gruntfile.js](Gruntfile.js)
 and will open web browser pointing to the `host` url set in `app-config-dev.js` (set url without trailing slash).
 To change the host and port information these are the two places that should be updated.
 
@@ -51,7 +51,7 @@ To run the application in `prod` mode run:
 ```shell
 grunt server:prod
 ```
-this will start web server listening to the port set as `prod-port` in the config section in [Gruntfile.js](Gruntfile.js)
+this will start web server listening to the port set in `connect:prod` section in [Gruntfile.js](Gruntfile.js)
 and will open web browser pointing to the `host` url set in `app-config-prod.js` (set url without trailing slash).
 
 In `prod` mode the application is served from the `dist` folder, using minified and concatinated javascript files.

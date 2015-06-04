@@ -9,14 +9,30 @@ module.exports = function (grunt) {
         'styles': 'src/stylesheet',
         'images': 'src/images',
         'dist': 'dist',
-        'distJs': 'dist/javascript',
-        'dev-port': '8888',
-        'prod-port': '8484'
+        'distJs': 'dist/javascript'
     };
 
     // Project configuration.
     grunt.initConfig({
         cfg: config,
+        connect: {
+            dev: {
+                options: {
+                    port: 8888,
+                    open: true,
+                    keepalive: 1,
+                    base: '<%= cfg.src %>'
+                }
+            },
+            prod: {
+                options: {
+                    port: 8484,
+                    open: true,
+                    keepalive: 1,
+                    base: '<%= cfg.dist %>'
+                }
+            }
+        },
         clean: {
             dist: {
                 files: [{
@@ -89,24 +105,6 @@ module.exports = function (grunt) {
             dist: {
                 files: {
                     '<%= cfg.dist %>/index.html': '<%= cfg.src %>/index.html'
-                }
-            }
-        },
-        connect: {
-            dev: {
-                options: {
-                    port: '<%= cfg.dev-port %>',
-                    open: true,
-                    keepalive: 1,
-                    base: '<%= cfg.src %>'
-                }
-            },
-            prod: {
-                options: {
-                    port: '<%= cfg.prod-port %>',
-                    open: true,
-                    keepalive: 1,
-                    base: '<%= cfg.dist %>'
                 }
             }
         },
