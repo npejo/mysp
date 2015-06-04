@@ -3,7 +3,7 @@
      * DEVELOPMENT configuration
      */
     app.Config = {
-        host: 'http://localhost:8888',
+        host: 'http://nikola.pejoski.com/mysp/src',
         appPrefix: 'mysp-',
         authApiUrl: 'https://accounts.spotify.com/authorize',
         apiBaseURL: 'https://api.spotify.com/v1',

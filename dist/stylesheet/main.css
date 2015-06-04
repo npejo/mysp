@@ -271,7 +271,13 @@ input.mysp-search-control {
 }
 
 .mysp-current-track {
-    width: 370px;
+    font-size: 12px;
+    line-height: 1em;
+}
+
+.mysp-player-track-name {
+    display: inline-block;
+    width: 250px;
 }
 
 .mysp-player-btn:active {
