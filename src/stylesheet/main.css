@@ -124,6 +124,9 @@ h1, h2 {
     width: 100%;
 }
 
+.mysp-title h1 {
+    font-size: 3em;
+}
 .mysp-title:hover {
     text-decoration: none;
 }
@@ -239,6 +242,46 @@ input.mysp-search-control {
     background-color: #cc3300;
     padding: 10px;
     color: #ffffff;
+}
+
+.mysp-player {
+    margin-bottom: 10px;
+}
+
+.mysp-player-btn {
+    background-color: #cccccc;
+    color: #333333;
+    float: right;
+    border: 1px solid #333333;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.mysp-player-btn:hover {
+    background-color: #fafafa;
+    color: #333333;
+    text-decoration: none;
+}
+
+.mysp-player-time {
+    float: right;
+    padding: 5px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.mysp-current-track {
+    font-size: 12px;
+    line-height: 1em;
+}
+
+.mysp-player-track-name {
+    display: inline-block;
+    width: 250px;
+}
+
+.mysp-player-btn:active {
+    background-color: #999999;
 }
 
 @media screen and (min-width: 1300px) {

@@ -46,14 +46,12 @@
                         'Welcome <strong class="mysp-logged-user-name">'
                         + this.user.getName() + '</strong>,&nbsp; <a href="#" id="btn-logout">Logout</a>' +
                     '</div>' +
-                    '<div class="row">' +
-                        '<a href="#page=queue">Playing Queue</a>' +
-                    '</div>' +
+                    '<div id="mysp-player-container" class="row text-right"></div>' +
                 '</div>' +
             '</header>' +
             '<div class="row">' +
-                '<div id="mysp-menu" class="col-1-3">Here should be the menu</div>' +
-                '<div id="mysp-content" class="col-2-3">this is content <h2>h2 123</h2></div>' +
+                '<div id="mysp-menu" class="col-1-3"></div>' +
+                '<div id="mysp-content" class="col-2-3"></div>' +
                 '' +
             '</div>';
     };

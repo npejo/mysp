@@ -77,6 +77,11 @@
                         logger: new app.Views.LoggerView({
                             element: 'mysp-info-box',
                             events: app.Events
+                        }),
+                        player: new app.Views.PlayerView({
+                            element: 'mysp-player-container',
+                            events: app.Events,
+                            queueModel: Queue
                         })
                     }
                 });

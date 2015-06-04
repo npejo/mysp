@@ -51,7 +51,7 @@
     };
 
     /**
-     * Return the main login page template as string
+     * Return the markup for the info message info
      *
      * @returns {string}
      */

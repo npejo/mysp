@@ -68,7 +68,7 @@
             '<td>' + track.name + '</td>' +
             '<td>' + this.showArtists(track) + '</td>' +
             '<td>' + this.showAlbum(track) + '</td>' +
-            '<td>' + this.showLength(track) + '</td>';
+            '<td>' + app.Utils.formatTime(track.duration_ms) + '</td>';
 
         // add actions
         row += '<td>&nbsp;';
@@ -161,28 +161,6 @@
 
 
         return album;
-    };
-
-    /**
-     * Show track length in mm:ss format
-     *
-     * @private
-     * @param trackModel
-     * @returns {string}
-     */
-    TracksTableView.prototype.showLength = function(trackModel) {
-        var length = '';
-
-        var time = new Date(trackModel.duration_ms);
-        var mins = time.getMinutes();
-        var secs = time.getSeconds();
-
-        // pad seconds with 0
-        secs = secs < 10 ? '0' + secs : secs;
-
-        length += mins + ':' + secs + '</a>';
-
-        return length;
     };
 
     app.Views.TracksTableView = TracksTableView;

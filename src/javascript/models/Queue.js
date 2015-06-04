@@ -67,6 +67,27 @@
         localStorage.setItem(this.appPrefix + 'queue', JSON.stringify(tracks));
     };
 
+    /**
+     * Return the track model on specific index
+     *
+     * @param index
+     * @returns {Object}
+     */
+    Queue.prototype.getTrack = function(index) {
+        var tracks = this.getTracks();
+        return tracks[index];
+    };
+
+    /**
+     * Returns the number of track in current queue
+     *
+     * @returns {Number}
+     */
+    Queue.prototype.getLength = function() {
+        var tracks = this.getTracks();
+        return tracks.length;
+    };
+
 
 
     app.Models.Queue = Queue;
