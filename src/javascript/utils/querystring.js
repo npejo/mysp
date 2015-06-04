@@ -44,4 +44,4 @@
         return encodedString;
     };
 
-})(MYMP);
+})(MYSP);

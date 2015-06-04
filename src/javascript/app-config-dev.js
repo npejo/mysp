@@ -4,7 +4,7 @@
      */
     app.Config = {
         host: 'http://localhost:8888',
-        appPrefix: 'mymp-',
+        appPrefix: 'mysp-',
         authApiUrl: 'https://accounts.spotify.com/authorize',
         apiBaseURL: 'https://api.spotify.com/v1',
         defaultRoute: {page: 'search'},
@@ -19,4 +19,4 @@
             'user-library-modify'
         ]
     };
-})(MYMP);
+})(MYSP);

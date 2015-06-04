@@ -272,4 +272,4 @@
     };
 
     app.Models.Playlist = Playlist;
-})(MYMP);
+})(MYSP);

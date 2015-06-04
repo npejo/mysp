@@ -27,8 +27,8 @@
      */
     PlaylistTracksView.prototype.addEventListeners = function() {
         // bind remove track action
-        this.addListener('.mymp-playlist-track-remove', 'click', this.removeTrackFromPlaylist.bind(this));
-        this.addListener('.mymp-track-add-to-queue', 'click', this.addTrackToQueue.bind(this));
+        this.addListener('.mysp-playlist-track-remove', 'click', this.removeTrackFromPlaylist.bind(this));
+        this.addListener('.mysp-track-add-to-queue', 'click', this.addTrackToQueue.bind(this));
     };
 
     /**
@@ -90,4 +90,4 @@
     };
 
     app.Views.PlaylistTracksView = PlaylistTracksView;
-})(MYMP);
+})(MYSP);

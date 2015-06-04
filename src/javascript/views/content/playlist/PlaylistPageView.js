@@ -74,9 +74,9 @@
      * @returns {string}
      */
     PlaylistPageView.prototype.getTemplate = function() {
-        return '<div id="mymp-playlist-details" class="row"></div>' +
-            '<div id="mymp-playlist-tracks"></div>';
+        return '<div id="mysp-playlist-details" class="row"></div>' +
+            '<div id="mysp-playlist-tracks"></div>';
     };
 
     app.Views.PlaylistPageView = PlaylistPageView;
-})(MYMP);
+})(MYSP);

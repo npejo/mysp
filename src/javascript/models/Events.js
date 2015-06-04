@@ -45,4 +45,4 @@
     };
 
     app.Models.Events = Events;
-})(MYMP);
+})(MYSP);

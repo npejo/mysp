@@ -22,9 +22,9 @@
      * @returns {string}
      */
     QueuePageView.prototype.getTemplate = function() {
-        return '<div id="mymp-queue-header" class="row"><h1>Playing Queue</h1></div>' +
-            '<div id="mymp-queue-tracks"></div>';
+        return '<div id="mysp-queue-header" class="row"><h1>Playing Queue</h1></div>' +
+            '<div id="mysp-queue-tracks"></div>';
     };
 
     app.Views.QueuePageView = QueuePageView;
-})(MYMP);
+})(MYSP);

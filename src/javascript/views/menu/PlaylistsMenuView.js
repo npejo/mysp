@@ -172,4 +172,4 @@
     };
 
     app.Views.PlaylistsMenuView = PlaylistsMenuView;
-})(MYMP);
+})(MYSP);

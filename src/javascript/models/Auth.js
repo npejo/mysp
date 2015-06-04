@@ -112,4 +112,4 @@
 
     // attach Auth in the list of app models
     app.Models.Auth = Auth;
-})(MYMP);
+})(MYSP);

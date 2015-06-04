@@ -29,8 +29,8 @@
      */
     SearchResultsView.prototype.addEventListeners = function() {
         // bind click to load next results button
-        this.addListener('.mymp-search-results-next', 'click', this.loadNextResults.bind(this));
-        this.addListener('.mymp-search-results-add-to', 'change', this.trackAddTo.bind(this));
+        this.addListener('.mysp-search-results-next', 'click', this.loadNextResults.bind(this));
+        this.addListener('.mysp-search-results-add-to', 'change', this.trackAddTo.bind(this));
     };
 
     /**
@@ -87,7 +87,7 @@
 
         var loadNextBtn = '';
         if (this.searchModel.hasNextResults()) {
-            loadNextBtn = '<div class="text-center"><button class="mymp-search-results-next btn">Load more</button></div>';
+            loadNextBtn = '<div class="text-center"><button class="mysp-search-results-next btn">Load more</button></div>';
         }
         return resultsTable + loadNextBtn;
     };
@@ -145,4 +145,4 @@
     };
 
     app.Views.SearchResultsView = SearchResultsView;
-})(MYMP);
+})(MYSP);

@@ -70,4 +70,4 @@
 
 
     app.Models.Queue = Queue;
-})(MYMP);
+})(MYSP);

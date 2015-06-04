@@ -3,13 +3,15 @@
 module.exports = function (grunt) {
 
     var config = {
-        tmp: '.tmp',
-        src: 'src',
-        scripts: 'src/javascript',
-        styles: 'src/stylesheet',
-        images: 'src/images',
-        dist: 'dist',
-        distJs: 'dist/javascript'
+        'tmp': '.tmp',
+        'src': 'src',
+        'scripts': 'src/javascript',
+        'styles': 'src/stylesheet',
+        'images': 'src/images',
+        'dist': 'dist',
+        'distJs': 'dist/javascript',
+        'dev-port': '8888',
+        'prod-port': '8484'
     };
 
     // Project configuration.
@@ -93,7 +95,7 @@ module.exports = function (grunt) {
         connect: {
             dev: {
                 options: {
-                    port: 8888,
+                    port: '<%= cfg.dev-port %>',
                     open: true,
                     keepalive: 1,
                     base: '<%= cfg.src %>'
@@ -101,7 +103,7 @@ module.exports = function (grunt) {
             },
             prod: {
                 options: {
-                    port: 8484,
+                    port: '<%= cfg.prod-port %>',
                     open: true,
                     keepalive: 1,
                     base: '<%= cfg.dist %>'

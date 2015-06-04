@@ -124,7 +124,7 @@ h1, h2 {
     width: 100%;
 }
 
-.mymp-title:hover {
+.mysp-title:hover {
     text-decoration: none;
 }
 
@@ -179,46 +179,46 @@ h2.playlist-name {
     margin-bottom: 10px;
 }
 
-.mymp-tracks-table {
+.mysp-tracks-table {
     font-size: .9em;
     width: 100%;
 }
 
-.mymp-tracks-table thead tr {
+.mysp-tracks-table thead tr {
     background-color: #cccccc;
     color: #333333;
     text-transform: uppercase;
     text-align: left;
 }
 
-.mymp-tracks-table td {
+.mysp-tracks-table td {
     max-width: 165px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.mymp-search-control {
+.mysp-search-control {
     padding: 10px;
     font-size: 18px;
 }
 
-input.mymp-search-control {
+input.mysp-search-control {
     width: 70%;
 }
 
-.mymp-login-wrapper {
+.mysp-login-wrapper {
     margin: 20% auto;
 }
 
-.mymp-login-page-column {
+.mysp-login-page-column {
     float: left;
     width: 44%;
     margin: 3%;
     text-align: center;
 }
 
-.mymp-login-logo {
+.mysp-login-logo {
     font-size: 73px;
     font-weight: bold;
 }

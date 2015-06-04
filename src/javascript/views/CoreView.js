@@ -96,4 +96,4 @@
     };
 
     app.Views.CoreView = CoreView;
-})(MYMP);
+})(MYSP);

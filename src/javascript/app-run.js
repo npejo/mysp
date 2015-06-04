@@ -31,7 +31,7 @@
         Auth.addLoginCallbackListener();
 
         // display login view
-        (new app.Views.LoginView({element: 'mymp-container', auth: Auth })).render();
+        (new app.Views.LoginView({element: 'mysp-container', auth: Auth })).render();
     }
 
     /**
@@ -69,7 +69,7 @@
 
                 // initialize the main application container view and render it
                 var appView = new app.Views.AppView({
-                    element: 'mymp-container',
+                    element: 'mysp-container',
                     auth: Auth,
                     user: User,
                     subViews: {
@@ -81,4 +81,4 @@
             });
         });
     }
-})(MYMP);
+})(MYSP);

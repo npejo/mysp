@@ -35,7 +35,7 @@
      * @returns {string}
      */
     TracksTableView.prototype.startTableHeader = function() {
-        return '<table class="mymp-tracks-table" rules="rows" cellspacing="0" cellpadding="3">' +
+        return '<table class="mysp-tracks-table" rules="rows" cellspacing="0" cellpadding="3">' +
             '<thead>' +
                 '<tr>' +
                     '<th>Song</th>' +
@@ -75,7 +75,7 @@
 
         // add track to playlist or current queue action
         if (this.actions.indexOf('add-to') !== -1) {
-            row += '&nbsp;<select style="width: 200px;" class="mymp-search-results-add-to" data-track-uri="' + track.uri + '">'
+            row += '&nbsp;<select style="width: 200px;" class="mysp-search-results-add-to" data-track-uri="' + track.uri + '">'
                 + this.drawAddToOptions() +
             '</select>';
         }
@@ -83,7 +83,7 @@
         // add track to current queue action
         if (this.actions.indexOf('add-to-queue') !== -1) {
             row += '&nbsp;<a href="#" ' +
-            'class="mymp-track-add-to-queue" ' +
+            'class="mysp-track-add-to-queue" ' +
             'rel="' + track.uri + '"' +
             'title="Add To Current Queue"' +
             '>Add To Queue</a>';
@@ -92,7 +92,7 @@
         // remove track from playlist action
         if (this.actions.indexOf('remove-from-playlist') !== -1) {
             row += '&nbsp;<a href="#" ' +
-                'class="mymp-playlist-track-remove" ' +
+                'class="mysp-playlist-track-remove" ' +
                 'rel="' + track.uri + '" data-order="' + index + '"' +
                 'title="Remove track from playlist"' +
                 '>Remove</a>';
@@ -101,7 +101,7 @@
         // remove track from current queue action
         if (this.actions.indexOf('remove-from-queue') !== -1) {
             row += '&nbsp;<a href="#" ' +
-            'class="mymp-queue-track-remove" ' +
+            'class="mysp-queue-track-remove" ' +
             'rel="' + track.uri + '" data-order="' + index + '"' +
             'title="Remove track from current queue"' +
             '>Remove</a>';
@@ -186,4 +186,4 @@
     };
 
     app.Views.TracksTableView = TracksTableView;
-})(MYMP);
+})(MYSP);

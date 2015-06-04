@@ -26,7 +26,7 @@
      */
     QueueTracksView.prototype.addEventListeners = function() {
         // bind remove track action
-        this.addListener('.mymp-queue-track-remove', 'click', this.removeTrackFromQueue.bind(this));
+        this.addListener('.mysp-queue-track-remove', 'click', this.removeTrackFromQueue.bind(this));
     };
 
     /**
@@ -66,4 +66,4 @@
     };
 
     app.Views.QueueTracksView = QueueTracksView;
-})(MYMP);
+})(MYSP);

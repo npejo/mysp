@@ -39,11 +39,11 @@
      */
     AppView.prototype.getTemplate = function() {
         return '<header class="row">' +
-                '<div class="col-1-3"><a href="#page=search" class="mymp-title"><h1>MY<br/>SP</h1></a></div>' +
-                '<div class="col-1-3 text-center" id="mymp-msg-box"><p>fdsgfdsgfd</p></div>' +
+                '<div class="col-1-3"><a href="#page=search" class="mysp-title"><h1>MY<br/>SP</h1></a></div>' +
+                '<div class="col-1-3 text-center" id="mysp-msg-box"><p>fdsgfdsgfd</p></div>' +
                 '<div class="col-1-3 text-right">' +
                     '<div class="row">' +
-                        'Welcome <strong class="mymp-logged-user-name">'
+                        'Welcome <strong class="mysp-logged-user-name">'
                         + this.user.getName() + '</strong>,&nbsp; <a href="#" id="btn-logout">Logout</a>' +
                     '</div>' +
                     '<div class="row">' +
@@ -52,11 +52,11 @@
                 '</div>' +
             '</header>' +
             '<div class="row">' +
-                '<div id="mymp-menu" class="col-1-3">Here should be the menu</div>' +
-                '<div id="mymp-content" class="col-2-3">this is content <h2>h2 123</h2></div>' +
+                '<div id="mysp-menu" class="col-1-3">Here should be the menu</div>' +
+                '<div id="mysp-content" class="col-2-3">this is content <h2>h2 123</h2></div>' +
                 '' +
             '</div>';
     };
     
     app.Views.AppView = AppView;
-})(MYMP);
+})(MYSP);

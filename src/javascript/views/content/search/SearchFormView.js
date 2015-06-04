@@ -24,8 +24,8 @@
      */
     SearchFormView.prototype.addEventListeners = function() {
         // bind click to make new search request from search page
-        this.addListener('#mymp-search-form-btn', 'click', this.doSearch.bind(this));
-        this.addListener('#mymp-search-form-input', 'keyup', this.doSearchOnEnter.bind(this));
+        this.addListener('#mysp-search-form-btn', 'click', this.doSearch.bind(this));
+        this.addListener('#mysp-search-form-input', 'keyup', this.doSearchOnEnter.bind(this));
     };
 
     /**
@@ -35,11 +35,11 @@
      */
     SearchFormView.prototype.getTemplate = function() {
         var query = this.route.q || '';
-        return '<input id="mymp-search-form-input" ' +
-                'class="mymp-search-control" ' +
+        return '<input id="mysp-search-form-input" ' +
+                'class="mysp-search-control" ' +
                 'type="text" placeholder="Search for songs" ' +
                 'value="' + query + '" />' +
-            '<button id="mymp-search-form-btn" class="mymp-search-control">Search</button>';
+            '<button id="mysp-search-form-btn" class="mysp-search-control">Search</button>';
     };
 
     /**
@@ -48,7 +48,7 @@
      * @private
      */
     SearchFormView.prototype.doSearch = function() {
-        var query = document.getElementById('mymp-search-form-input').value;
+        var query = document.getElementById('mysp-search-form-input').value;
         if (query !== '') {
             this.goTo({page: 'search', q: query});
         }
@@ -66,4 +66,4 @@
     };
     
     app.Views.SearchFormView = SearchFormView;
-})(MYMP);
+})(MYSP);

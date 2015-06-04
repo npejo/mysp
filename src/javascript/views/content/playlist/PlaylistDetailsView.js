@@ -162,4 +162,4 @@
     };
 
     app.Views.PlaylistDetailsView = PlaylistDetailsView;
-})(MYMP);
+})(MYSP);

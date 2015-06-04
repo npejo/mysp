@@ -22,9 +22,9 @@
      * @returns {string}
      */
     MenuView.prototype.getTemplate = function() {
-        return '<div id="mymp-menu-search" class="menu-section"></div>' +
-            '<div id="mymp-menu-playlists" class="menu-section"></div>';
+        return '<div id="mysp-menu-search" class="menu-section"></div>' +
+            '<div id="mysp-menu-playlists" class="menu-section"></div>';
     };
 
     app.Views.MenuView = MenuView;
-})(MYMP);
+})(MYSP);

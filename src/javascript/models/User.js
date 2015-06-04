@@ -130,4 +130,4 @@
     };
 
     app.Models.User = User;
-})(MYMP);
+})(MYSP);

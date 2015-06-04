@@ -104,4 +104,4 @@
     };
 
     app.Models.Search = Search;
-})(MYMP);
+})(MYSP);

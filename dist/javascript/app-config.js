@@ -1,6 +1,6 @@
 // initialize the app namespace
 // this is the only application variable added to the global object
-var MYMP = {
+var MYSP = {
     Config: {},
     Utils: {},
     Models: {},
@@ -14,7 +14,7 @@ var MYMP = {
      */
     app.Config = {
         host: 'http://localhost:8484',
-        appPrefix: 'mymp-',
+        appPrefix: 'mysp-',
         authApiUrl: 'https://accounts.spotify.com/authorize',
         apiBaseURL: 'https://api.spotify.com/v1',
         defaultRoute: {page: 'search'},
@@ -29,4 +29,4 @@ var MYMP = {
             'user-library-modify'
         ]
     };
-})(MYMP);
+})(MYSP);

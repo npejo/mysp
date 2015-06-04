@@ -61,4 +61,4 @@
     };
 
     app.Views.ContentView = ContentView;
-})(MYMP);
+})(MYSP);
