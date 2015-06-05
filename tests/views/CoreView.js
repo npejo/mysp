@@ -78,75 +78,26 @@ describe('CoreView', function() {
             this.coreView = new MYSP.Views.CoreView({
                 element: 'app-container'
             });
+            this.appContainer = document.getElementById('app-container');
         });
 
         afterEach(function() {
             this.addELStub.restore();
             this.getTemplateStub.restore();
             this.coreView = null;
+            this.appContainer.innerHTML = '';
         });
 
         it('should render its template and trigger adding event listeners', function() {
             this.coreView.renderSelf();
-            var container = document.getElementById('app-container');
-            expect(container.innerHTML).to.equal('Test Template!!!');
+            expect(this.appContainer.innerHTML).to.equal('Test Template!!!');
             expect(this.addELStub).to.be.calledOnce;
         });
 
         it('should render its template and DON\'T trigger adding event listeners', function() {
             this.coreView.renderSelf(true);
-            var container = document.getElementById('app-container');
-            expect(container.innerHTML).to.equal('Test Template!!!');
+            expect(this.appContainer.innerHTML).to.equal('Test Template!!!');
             expect(this.addELStub).to.not.have.been.called;
-        });
-    });
-
-    describe('renderSubviews', function() {
-        it('should return -1 when the value is not present', function() {
-
-
-        });
-    });
-
-    describe('updateRoute', function() {
-        it('should return -1 when the value is not present', function() {
-
-
-        });
-    });
-
-    describe('updateSubviewsRoute', function() {
-        it('should return -1 when the value is not present', function() {
-
-
-        });
-    });
-
-    describe('goTo', function() {
-        it('should return -1 when the value is not present', function() {
-
-
-        });
-    });
-
-    describe('addListener', function() {
-        it('should return -1 when the value is not present', function() {
-
-
-        });
-    });
-
-    describe('addListenerById', function() {
-        it('should return -1 when the value is not present', function() {
-
-
-        });
-    });
-
-    describe('addListenerByClass', function() {
-        it('should return -1 when the value is not present', function() {
-
-
         });
     });
 });
