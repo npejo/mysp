@@ -2,8 +2,8 @@
 
 This application allows you to manage your music playlists on Spotify and simulates playing tracks queue.
 It is deployed on Github and is accessible on the following urls:
-  * `[http://nikola.pejoski.com/mysp/dist](http://nikola.pejoski.com/mysp/dist)` - production instance (minified and concatenated js)
-  * `[http://nikola.pejoski.com/mysp/src](http://nikola.pejoski.com/mysp/src)` - development instance (uses the source files)
+  * http://nikola.pejoski.com/mysp/dist - production instance (minified and concatenated js)
+  * http://nikola.pejoski.com/mysp/src - development instance (uses the source files)
   
 Following are instructions how to install the application locally.
 ## Installation
