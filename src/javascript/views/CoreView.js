@@ -86,6 +86,18 @@
     };
 
     /**
+     * Read current route and set the `route` property
+     */
+    CoreView.prototype.getCurrentRoute = function() {
+        var hashString = window.location.hash.split('#')[1];
+        if (hashString.indexOf('page') !== -1) {
+            return app.Utils.hashToObject(hashString);
+        } else {
+            return null;
+        }
+    };
+
+    /**
      * Update the `route` properties in all subviews
      * @param newRoute
      */

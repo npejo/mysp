@@ -15,7 +15,6 @@
         this.currentTrack = null;
 
         // injected dependencies
-        this.route = options.route;
         this.appEvents = options.events;
         this.TracksTableView = options.TracksTableView;
         this.queueModel = options.queueModel;
@@ -35,8 +34,9 @@
             var self = this;
             // subscribe to application level event
             this.appEvents.subscribe('currentTrack', function(trackIndex) {
-                if (self.route.page === 'queue') {
-                    self.currentTrack = trackIndex;
+                var curRoute = self.getCurrentRoute();
+                self.currentTrack = trackIndex;
+                if (curRoute.page === 'queue') {
                     self.render();
                 }
             });

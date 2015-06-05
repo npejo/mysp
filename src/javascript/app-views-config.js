@@ -100,11 +100,9 @@
     function getQueuePageView(route, User, Auth, Queue) {
         return new app.Views.QueuePageView({
             element: 'mysp-content',
-            route: route,
             subViews: {
                 queueTracks: new app.Views.QueueTracksView({
                     element: 'mysp-queue-tracks',
-                    route: route,
                     events: app.Events,
                     queueModel: Queue,
                     TracksTableView: app.Views.TracksTableView
