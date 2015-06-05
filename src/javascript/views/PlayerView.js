@@ -104,11 +104,18 @@
             trackIndex = 0;
         }
 
+        // go to last song if previous of first is requested
+        if (trackIndex < 0) {
+            trackIndex = nbrIndexes;
+        }
+
         var track = this.queueModel.getTrack(trackIndex);
         this.setCurrentTrack(trackIndex, track);
 
         this.play();
         this.showCurrentTrackInfo();
+
+        this.appEvents.publish('currentTrack', trackIndex);
     };
 
     /**
@@ -164,6 +171,7 @@
         if (!this.isEmptyQueue()) {
             var trackModel = this.queueModel.getTrack(0);
             this.setCurrentTrack(0, trackModel);
+            this.appEvents.publish('currentTrack', 0);
         }
     };
 

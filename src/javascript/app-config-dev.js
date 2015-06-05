@@ -3,7 +3,7 @@
      * DEVELOPMENT configuration
      */
     app.Config = {
-        host: 'http://nikola.pejoski.com/mysp/src',
+        host: 'http://nikola.pejoski.com/mysp/src', // set url without trailing slash
         appPrefix: 'mysp-',
         authApiUrl: 'https://accounts.spotify.com/authorize',
         apiBaseURL: 'https://api.spotify.com/v1',

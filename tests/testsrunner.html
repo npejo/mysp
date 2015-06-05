@@ -7,16 +7,25 @@
 </head>
 <body>
 <div id="mocha"></div>
+<div id="app-container"></div>
 <script src="../node_modules/mocha/mocha.js"></script>
 <script src="../node_modules/chai/chai.js"></script>
+<script src="../node_modules/sinon-chai/lib/sinon-chai.js"></script>
+<script src="../node_modules/sinon-browser-only/sinon.js"></script>
+
+<!-- source scripts -->
+<script src="../src/javascript/app-initialize.js"></script>
+<script src="../src/javascript/app-config-dev.js"></script>
+<script src="../src/javascript/views/CoreView.js"></script>
 
 <script>
     mocha.setup('bdd')
     mocha.reporter('html');
+    expect = chai.expect;
 </script>
 
-
-<script src="test.js"></script>
+<!-- test specs -->
+<script src="views/CoreView.js"></script>
 
 <script>
     if (navigator.userAgent.indexOf('PhantomJS') < 0) {

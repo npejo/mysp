@@ -1,5 +1,7 @@
-// initialize the app namespace
-// this is the only application variable added to the global object
+/**
+ * Initialize namespace for the application,
+ * this is the only variable added to the global object
+ */
 var MYSP = {
     Config: {},
     Utils: {},

@@ -38,7 +38,7 @@
      * @returns {string}
      */
     AppView.prototype.getTemplate = function() {
-        return '<header class="row">' +
+        return '<header class="row mysp-header">' +
                 '<div class="col-1-3"><a href="#page=search" class="mysp-title"><h1>MY<br/>SP</h1></a></div>' +
                 '<div class="col-1-3 text-center" id="mysp-info-box"></div>' +
                 '<div class="col-1-3 text-right">' +

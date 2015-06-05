@@ -13,7 +13,7 @@ var MYSP = {
      * PRODUCTION configuration
      */
     app.Config = {
-        host: 'http://nikola.pejoski.com/mysp/dist',
+        host: 'http://nikola.pejoski.com/mysp/dist', // set url without trailing slash
         appPrefix: 'mysp-',
         authApiUrl: 'https://accounts.spotify.com/authorize',
         apiBaseURL: 'https://api.spotify.com/v1',
