@@ -8,6 +8,8 @@ It is deployed on Github and is accessible on the following urls:
 Following are instructions how to install the application locally.
 ## Installation
 
+clone this repository https://github.com/npejo/mysp.git
+
 ### Check configuration
 
 There are two configuration files for the application, one for `development` and one for `production` environment.
