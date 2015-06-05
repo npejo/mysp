@@ -1,5 +1,7 @@
-// initialize the app namespace
-// this is the only application variable added to the global object
+/**
+ * Initialize namespace for the application,
+ * this is the only variable added to the global object
+ */
 var MYSP = {
     Config: {},
     Utils: {},
@@ -13,7 +15,7 @@ var MYSP = {
      * PRODUCTION configuration
      */
     app.Config = {
-        host: 'http://localhost:8484',
+        host: 'http://localhost:8484', // set url without trailing slash
         appPrefix: 'mysp-',
         authApiUrl: 'https://accounts.spotify.com/authorize',
         apiBaseURL: 'https://api.spotify.com/v1',

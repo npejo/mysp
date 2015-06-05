@@ -197,6 +197,9 @@ h2.playlist-name {
     text-transform: uppercase;
     text-align: left;
 }
+.mysp-tracks-table tr.active {
+    background-color: #444444;
+}
 
 .mysp-tracks-table td {
     max-width: 165px;

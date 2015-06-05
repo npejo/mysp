@@ -11,6 +11,7 @@
         this.tracks = options.tracks;
         this.playlists = options.playlists || []; // optional
         this.actions = options.actions;
+        this.activeRow = options.activeRow;
     };
 
     /**
@@ -64,7 +65,8 @@
      * @returns {string}
      */
     TracksTableView.prototype.drawTrackRow = function(track, index) {
-        var row = '<tr id="track-' + track.uri + '">' +
+        var activeClass = (index === this.activeRow) ? 'class="active"' : '';
+        var row = '<tr id="track-' + track.uri + '" ' + activeClass + '>' +
             '<td>' + track.name + '</td>' +
             '<td>' + this.showArtists(track) + '</td>' +
             '<td>' + this.showAlbum(track) + '</td>' +

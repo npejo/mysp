@@ -134,6 +134,7 @@ The results list is refreshed when the query is changed.
 * `AppView.js` - Root view of the application. Binded to the app root element and renders the layout of the app sections: Header, Menu, Content.
 * `menu/MenuView.js` - Render the main menu by rendering the subviews: `PlaylistMenuView.js` and `SearchMenuView.js`. The search menu section is hidden with the user is on the search page.
 * `content/ContentView.js` - Depending on the `#page=<page-value>` in url renders the appropriate views
+* `content/common/TracksTableView.js` - Renders table for given list of tracks on input. It is reused on: Playlist, Search and Queue pages.
 * `content/search/SearchPageView.js` - Render the search page. It has two sections/subviews: `SearchFormView.js` and `SearchResultsView.js`
 * `content/playlist/PlaylistPageView.js` - Render the playlist page. It has two sections/subviews: `PlaylistDetailsView.js` and `PlaylistTracksView.js`
 * `content/queue/QueuePageView.js` - Render the content of the current playing queue. It has one subview: `QueueTracksView.js`

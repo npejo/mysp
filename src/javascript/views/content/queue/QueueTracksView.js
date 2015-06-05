@@ -12,7 +12,10 @@
         // invoke the constructor of the parent object
         app.Views.CoreView.call(this, options);
 
+        this.currentTrack = null;
+
         // injected dependencies
+        this.route = options.route;
         this.appEvents = options.events;
         this.TracksTableView = options.TracksTableView;
         this.queueModel = options.queueModel;
@@ -25,6 +28,20 @@
      * Bind event actions on elements within the view
      */
     QueueTracksView.prototype.addEventListeners = function() {
+        // prevent subscribing more than once
+        if (!this.subscribed) {
+            this.subscribed = true;
+
+            var self = this;
+            // subscribe to application level event
+            this.appEvents.subscribe('currentTrack', function(trackIndex) {
+                if (self.route.page === 'queue') {
+                    self.currentTrack = trackIndex;
+                    self.render();
+                }
+            });
+        }
+
         // bind remove track action
         this.addListener('.mysp-queue-track-remove', 'click', this.removeTrackFromQueue.bind(this));
     };
@@ -44,7 +61,8 @@
             var queueTpl = (new this.TracksTableView(
                 {
                     tracks: tracks,
-                    actions: ['remove-from-queue']
+                    actions: ['remove-from-queue'],
+                    activeRow: this.currentTrack
                 }
             )).render();
         }
