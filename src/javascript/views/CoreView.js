@@ -17,7 +17,6 @@
      * @constructor
      */
     var CoreView = function(options) {
-
         // local properties
         this.element = null;
         this.subscribed = false;
@@ -26,8 +25,6 @@
         this.elementId = options.element;
         this.subViews = options.subViews || {};
         this.route = options.route || {};
-
-
     };
 
     /**
@@ -77,7 +74,8 @@
     /**
      * Add event listeners to elements within the template
      */
-    CoreView.prototype.addEventListeners = function() {};
+    CoreView.prototype.addEventListeners = function() {
+    };
 
     /**
      * Update the `route` property
@@ -117,37 +115,52 @@
      */
     CoreView.prototype.addListener = function(selector, eventName, callback) {
         var cleanSelector = selector.substring(1);
-        switch(selector.charAt(0)) {
+        switch (selector.charAt(0)) {
             case '#':
-                addListenerById(cleanSelector, eventName, callback);
+                this.addListenerById(cleanSelector, eventName, callback);
                 break;
             case '.':
-                addListenerByClass(cleanSelector, eventName, callback);
+                this.addListenerByClass(cleanSelector, eventName, callback);
                 break;
         }
+    };
 
-        function addListenerById(elementId, eventName, callback) {
-            var element = document.getElementById(elementId);
-            if (!element) {
-                return;
-            }
-
-            element.addEventListener(eventName, function() {
-                callback();
-            }, false);
+    /**
+     * Select element by id and adds event listener using the specified event name and callback
+     * @private
+     * @param elementId
+     * @param eventName
+     * @param callback
+     */
+    CoreView.prototype.addListenerById = function(elementId, eventName, callback) {
+        var element = document.getElementById(elementId);
+        if (!element) {
+            return;
         }
 
-        function addListenerByClass(className, eventName, callback) {
-            var elements = document.getElementsByClassName(className);
-            if (!elements.length) {
-                return;
-            }
-            var nbrElements = elements.length;
-            for (var i=0; i < nbrElements; i++) {
-                elements[i].addEventListener(eventName, function() {
-                    callback();
-                }, false);
-            }
+        element.addEventListener(eventName, function() {
+            callback();
+        }, false);
+    };
+
+    /**
+     * Select element by class name and adds event listener using the specified event name and callback
+     *
+     * @private
+     * @param className
+     * @param eventName
+     * @param callback
+     */
+    CoreView.prototype.addListenerByClass = function(className, eventName, callback) {
+        var elements = document.getElementsByClassName(className);
+        if (!elements.length) {
+            return;
+        }
+        var nbrElements = elements.length;
+        for (var i = 0; i < nbrElements; i++) {
+            elements[i].addEventListener(eventName, function() {
+                callback();
+            }, false);
         }
     };
 
